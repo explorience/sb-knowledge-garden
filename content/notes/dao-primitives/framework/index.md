@@ -9,9 +9,9 @@ This framework organizes the foundational concepts used in [DAO](../../../tags/d
 
 - group-facilitation
 
-- **[Group Phase](./phase/index.md#)**
-- **[Group Scale](./scale/index.md#)**
-- [Group State](./state.md#)
+- **[Group Phase](./group-phase/index.md#)**
+- **[Group Scale](./group-scale/index.md#)**
+- **[Group State](./group-state.md#)**
 
 ---
 
@@ -28,7 +28,7 @@ All groups go through different stages as they grow. Understanding these stages 
 *   **Formation Phase:**  Establishing structures and systems.
 *   **Organization Phase:**  Ongoing operation and evolution.
 
-[Learn more about Group Phases](./phase/index.md#.md#)
+[Learn more about Group Phases](./group-phase/index.md#.md#)
 
 
 ### 2. Group Scale: Size and Complexity
@@ -40,7 +40,7 @@ The size and complexity of your group significantly impact how it functions.  Di
 *   **Constituency Scale:**  Broader communities participating in governance.
 *   **Network Scale:**  Interconnected networks of organizations.
 
-[Learn more about Group Scales](./scale/index.md#.md#)
+[Learn more about Group Scales](./group-scale/index.md#.md#)
 
 
 ### 3. Group State: Defining Your Organization
@@ -53,7 +53,7 @@ Understanding your organization's current state is crucial for effective coordin
 
 *   **Progress:** How is progress towards the organization's purpose tracked and measured?  This includes timelines, milestones, deliverables, and other metrics.  Tracking progress enables accountability and informs future planning.
 
-[Learn more about Group State](./state.md#.md#)
+[Learn more about Group State](./group-state.md#.md#)
 
 ---
 
@@ -68,11 +68,11 @@ The Group Facilitation Framework helps you design and implement effective organi
 
 The framework connects the key concepts of Phase, Scale, and State to the implementation patterns in the following ways:
 
-*   **Group Phase:**  Different groups go through distinct phases of development.  Understanding these phases allows you to tailor your approach to the group's current needs and adapt as it evolves.  The framework outlines these phases and suggests appropriate patterns for each stage. [Learn more about Group Phase](./phase/index.md#.md#.md#).
+*   **Group Phase:**  Different groups go through distinct phases of development.  Understanding these phases allows you to tailor your approach to the group's current needs and adapt as it evolves.  The framework outlines these phases and suggests appropriate patterns for each stage. [Learn more about Group Phase](./group-phase/index.md#.md#.md#).
 
-*   **Group Scale:** Human systems function differently at different scales.  The framework helps you leverage this understanding to design organizational systems that function effectively, regardless of size.  Different scales require different tools and practices. [Learn more about Group Scale](./scale/index.md#.md#.md#).
+*   **Group Scale:** Human systems function differently at different scales.  The framework helps you leverage this understanding to design organizational systems that function effectively, regardless of size.  Different scales require different tools and practices. [Learn more about Group Scale](./group-scale/index.md#.md#.md#).
 
-*   **Group State:**  For effective decentralized organization, entities within a network need to be interoperable and universally addressable.  The concept of *group state* helps achieve this by allowing entities to maintain their independence while integrating into the larger network. [Learn more about Group State](./state.md#.md#).
+*   **Group State:**  For effective decentralized organization, entities within a network need to be interoperable and universally addressable.  The concept of *group state* helps achieve this by allowing entities to maintain their independence while integrating into the larger network. [Learn more about Group State](./group-state.md#.md#).
 
 
 By considering these three properties, the framework guides you in selecting appropriate patterns from the Pattern Library to implement your organizational design.  The patterns provide practical, tested solutions that align with your group's specific context and stage of development.
@@ -86,13 +86,13 @@ For a detailed explanation of the Group Facilitation Framework, including step-b
 
 ## Integration Patterns
 
-The [Pattern Library](../../../artifacts/patterns/index.md#) provides reusable solutions to common organizational challenges. These patterns combine primitives into practical implementations, showing how to effectively integrate the core concepts discussed in this framework.  The patterns within the library are categorized and described to facilitate discovery and selection based on your organization's specific context (phase and scale).
+The [Pattern Library](artifacts/patterns/patterns.md) provides reusable solutions to common organizational challenges. These patterns combine primitives into practical implementations, showing how to effectively integrate the core concepts discussed in this framework.  The patterns within the library are categorized and described to facilitate discovery and selection based on your organization's specific context (phase and scale).
 
 To effectively leverage the Pattern Library, follow these steps:
 
 1.  **Assess Your Context:** Use the Group Facilitation Framework (group-facilitation) to determine your group's current phase and scale. This assessment will highlight the challenges you face and the types of solutions you need.
 
-2.  **Identify Relevant Patterns:**  Navigate the Pattern Library ([notes/patterns/patterns.md](../../../artifacts/patterns/index.md#.md#)) using the provided index.  Focus on patterns that address the challenges identified in step 1, considering the specific needs of your group's phase and scale.  The library's organization by phase and scale will help you quickly find relevant patterns.
+2.  **Identify Relevant Patterns:**  Navigate the Pattern Library ([notes/patterns/patterns.md](artifacts/patterns/patterns.md)) using the provided index.  Focus on patterns that address the challenges identified in step 1, considering the specific needs of your group's phase and scale.  The library's organization by phase and scale will help you quickly find relevant patterns.
 
 3.  **Review and Adapt:**  Carefully review the selected patterns to understand their underlying principles and implementation details.  Adapt the patterns to your specific context, ensuring they align with your group's goals and constraints.
 
