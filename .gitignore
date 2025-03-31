@@ -9,3 +9,10 @@ tsconfig.tsbuildinfo
 private/
 .replit
 replit.nix
+
+
+# Ignore Python virtual environment
+/.venv/**
+
+# Ignore everything in the specstory folder (Cursor extention which exports chat histories)
+/.specstory/

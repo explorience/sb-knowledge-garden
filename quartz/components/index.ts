@@ -20,6 +20,9 @@ import MobileOnly from "./MobileOnly"
 import RecentNotes from "./RecentNotes"
 import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
+// Custom components
+import CitationGenerator from "./CitationGenerator"
+import LicenseInfo from "./LicenseInfo"
 
 export {
   ArticleTitle,
@@ -44,4 +47,7 @@ export {
   NotFound,
   Breadcrumbs,
   Comments,
+  // Custom components
+  CitationGenerator,
+  LicenseInfo,
 }
