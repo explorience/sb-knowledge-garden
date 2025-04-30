@@ -12,7 +12,7 @@ export default ((opts?: Options) => {
     const year = new Date().getFullYear()
     const links = opts?.links ?? []
     return (
-      <footer class={`${displayClass ?? ""}`}>
+      <footer class={`${displayClass ?? ""}`} style={{ marginTop: "2rem" }}>
         <ul>
           {Object.entries(links).map(([text, link]) => (
             <li>
@@ -20,7 +20,7 @@ export default ((opts?: Options) => {
             </li>
           ))}
         </ul>
-        <p style={{ margin: "0" }}>
+        <p style={{ margin: "0"}}>
           {i18n(cfg.locale).components.footer.createdWith}{" "}
           <a href="https://quartz.jzhao.xyz/">Quartz v{version}</a> © {year}
         </p>
