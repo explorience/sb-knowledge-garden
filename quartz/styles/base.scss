@@ -44,6 +44,9 @@ html {
   text-size-adjust: none;
   overflow-x: hidden;
   width: 100vw;
+  > * {
+    max-width: 100%;
+  }
 }
 
 body,
