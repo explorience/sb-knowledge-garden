@@ -4,17 +4,21 @@ import * as Component from "./quartz/components"
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [],
+  header: [
+    Component.Darkmode(),
+    Component.Search(),
+  ],
   afterBody: [
     Component.LicenseInfo(),
-        Component.CitationGenerator({
-          defaultStyle: 'apa'
-        })
+    Component.CitationGenerator({
+      defaultStyle: 'apa'
+    })
   ],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      "Twitter": "https://twitter.com/superbenefitdao",
+      "Discord": "https://discord.com/invite/d2EeszTvVm",
+      "Mirror": "https://superbenefit.mirror.xyz/",
     },
   }),
 }
@@ -28,12 +32,9 @@ export const defaultContentPageLayout: PageLayout = {
     Component.TagList(),
   ],
   left: [
-    Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.Darkmode(),
     Component.DesktopOnly(Component.Explorer({
-      title: "Knowledge", // title of the explorer component
+      title: "Knowledge Garden", // title of the explorer component
     })),
   ],
   right: [
@@ -47,10 +48,7 @@ export const defaultContentPageLayout: PageLayout = {
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
-    Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.Darkmode(),
     Component.DesktopOnly(Component.Explorer({
       title: "Knowledge Garden", // title of the explorer component
     })),

@@ -16,3 +16,5 @@ replit.nix
 
 # Ignore everything in the specstory folder (Cursor extention which exports chat histories)
 /.specstory/
+# SpecStory explanation file
+.specstory/.what-is-this.md

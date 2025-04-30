@@ -23,6 +23,7 @@ import Comments from "./Comments"
 // Custom components
 import CitationGenerator from "./CitationGenerator"
 import LicenseInfo from "./LicenseInfo"
+import Header from "./Header"
 
 export {
   ArticleTitle,
@@ -50,4 +51,5 @@ export {
   // Custom components
   CitationGenerator,
   LicenseInfo,
+  Header,
 }

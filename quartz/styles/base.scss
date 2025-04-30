@@ -2,6 +2,43 @@
 @use "./syntax.scss";
 @use "./callouts.scss";
 
+/* Maple Mono Light*/
+@font-face {
+  font-family: "MapleMono";
+  src: url("https://arweave.net/9M6Kw2z01K7F7xvB922HSyHhgc47hVGsML_sXn47vfk") format("truetype");
+  font-weight: 100;
+}
+/* Maple Mono Light Italic*/
+@font-face {
+  font-family: "MapleMonoItalic";
+  src: url("https://arweave.net/ij5gAnbv0TwKIy15AWkCLf6uP_g-MtukjDcW_AaFieA") format("truetype");
+  font-weight: 100;
+}
+/* Maple Mono*/
+@font-face {
+  font-family: "MapleMono";
+  src: url("https://arweave.net/TWoeXug6rU14GP9aVH4o5HRojlmI3UKC1TUxxK9EOHs") format("truetype");
+  font-weight: 200;
+}
+/* Maple Mono Italic*/
+@font-face {
+  font-family: "MapleMonoItalic";
+  src: url("https://arweave.net/AgSvkeq2Ah23Gs9H-n2j6HdTPb2o4tWXcvqjs_lYB7c") format("truetype");
+  font-weight: 200;
+}
+/* Maple Mono Bold*/
+@font-face {
+  font-family: "MapleMono";
+  src: url("https://arweave.net/WERfoVZUunnNYvLlq1d8dI6EimZ8okYSWSxokeXqv_A") format("truetype");
+  font-weight: 300;
+}
+/* Maple Mono Bold Italic*/
+@font-face {
+  font-family: "MapleMonoItalic";
+  src: url("https://arweave.net/CyV4HglmMOQ2HenXa89tfZehfRNL30Y4mmrhD644o90") format("truetype");
+  font-weight: 300;
+}
+
 html {
   scroll-behavior: smooth;
   text-size-adjust: none;
@@ -123,6 +160,8 @@ a {
 .page {
   max-width: calc(#{map-get($breakpoints, desktop)} + 300px);
   margin: 0 auto;
+  padding: 0 1rem;
+  min-width: 100%;
   & article {
     & > h1 {
       font-size: 2rem;
@@ -156,6 +195,7 @@ a {
     column-gap: #{map-get($desktopGrid, columnGap)};
     row-gap: #{map-get($desktopGrid, rowGap)};
     grid-template-areas: #{map-get($desktopGrid, templateAreas)};
+    min-width: 100%;
     @media all and ($desktop) {
       grid-template-columns: #{map-get($tabletGrid, templateColumns)};
       grid-template-rows: #{map-get($tabletGrid, templateRows)};
@@ -585,4 +625,140 @@ iframe.pdf {
   height: 100%;
   width: 100%;
   border-radius: 5px;
+}
+
+/* Add styles for the new Header classes */
+header {
+  /* Assuming a fixed header style, adjust if needed */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--light);
+  border-bottom: 1px solid var(--border);
+  z-index: 10; /* Ensure header is above other content */
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    height: 3.5rem; /* Corresponds to h-14 */
+    padding: 0 1rem; /* Add some horizontal padding */
+    max-width: calc(#{map-get($breakpoints, desktop)} + 300px); /* Match page max-width */
+    margin: 0 auto; /* Center container */
+  }
+
+  .header-logo {
+    display: flex; /* Replaces 'flex' on parent */
+    margin-right: 1rem; /* Corresponds to mr-4 */
+  }
+
+  .home-link {
+    display: flex; /* Replaces 'flex' */
+    align-items: center; /* Replaces 'items-center' */
+    margin-right: 1.5rem; /* Corresponds to mr-6 */
+    color: var(--dark); /* Ensure icon color contrasts */
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    &:hover {
+        color: var(--secondary); /* Match link hover */
+    }
+  }
+
+  .header-right {
+    display: flex;
+    flex: 1; /* Corresponds to flex-1 */
+    align-items: center;
+    justify-content: flex-end; /* Corresponds to justify-end */
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem; /* Corresponds to space-x-2, adjust as needed */
+  }
+
+  /* Styles for mobile nav trigger (assuming it exists) */
+  .mobile-nav-trigger {
+    display: block; /* Always display */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-top: 0.15rem;
+    margin-left: 0.5rem;
+
+    svg {
+        stroke: var(--dark);
+    }
+  }
+
+  /* Styles for nav menu (assuming it exists) */
+  .nav-menu {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 3.5rem; /* Below header */
+    right: 0;
+    width: 200px;
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-top: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 11; /* Above overlay */
+
+    &.open {
+        display: block;
+    }
+
+    .nav-menu-content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+
+        a {
+            padding: 0.5rem 0;
+            color: var(--dark);
+            &:hover {
+                color: var(--secondary);
+            }
+        }
+    }
+  }
+
+  .nav-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 9; /* Below header but above page content */
+
+    &.open {
+        display: block;
+    }
+  }
+}
+
+
+.center > article.popover-hint > h1,
+.center > article.popover-hint > h2,
+.center > article.popover-hint > h3,
+.center > article.popover-hint > h4,
+.center > article.popover-hint > h5,
+.center > article.popover-hint > h6,
+.center > .popover-hint > article > h1,
+.center > .popover-hint > article > h2,
+.center > .popover-hint > article > h3,
+.center > .popover-hint > article > h4,
+.center > .popover-hint > article > h5,
+.center > .popover-hint > article > h6,
+.article-title {
+    font-family: "MapleMono" ;
+    color: var(--tertiary);
 }
