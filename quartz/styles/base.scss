@@ -195,7 +195,6 @@ a {
     column-gap: #{map-get($desktopGrid, columnGap)};
     row-gap: #{map-get($desktopGrid, rowGap)};
     grid-template-areas: #{map-get($desktopGrid, templateAreas)};
-    min-width: 100%;
     @media all and ($desktop) {
       grid-template-columns: #{map-get($tabletGrid, templateColumns)};
       grid-template-rows: #{map-get($tabletGrid, templateRows)};
@@ -215,7 +214,7 @@ a {
       padding: 0 1rem;
     }
     @media all and ($mobile) {
-      margin: 0 auto;
+      margin: 0 1rem;
     }
 
     & .sidebar {
