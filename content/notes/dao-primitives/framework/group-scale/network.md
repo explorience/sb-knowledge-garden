@@ -43,11 +43,9 @@ This scale is characterized by high levels of interdependence, complex communica
 
 ### Network Scale Patterns
 
-<div><ul class="dataview list-view-ul"><li><span></span></li><li><span></span></li><li><span></span></li><li><span></span></li></ul></div>
 
-### Network Scale Primitives
 
-<div><ul class="dataview list-view-ul"><li><span></span></li></ul></div>
+
 
 ---
 
