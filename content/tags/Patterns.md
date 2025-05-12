@@ -1,7 +1,9 @@
 ---
 title: Patterns
 description: Reusable solutions for common challenges in organizations and systems.
-publish: true
+harvester:
+  - rathermercurial.eth
+publish: "true"
 type: tag
 aliases:
   - "#patterns"
@@ -44,7 +46,7 @@ We see patterns as bridging the gap between high-level principles and on-the-gro
 
 ## Exploring SuperBenefit Patterns
 
-You can explore the specific patterns we use at SuperBenefit by browsing the ["Patterns" tag](patterns.md#) in our knowledge garden. There, you'll find a growing collection of reusable solutions for building a better future.
+You can explore the specific patterns we use at SuperBenefit by browsing the ["Patterns" tag](Patterns.md#) in our knowledge garden. There, you'll find a growing collection of reusable solutions for building a better future.
 
 ## Using Patterns for Your Own Organization
 
