@@ -44,9 +44,6 @@ html {
   text-size-adjust: none;
   overflow-x: hidden;
   width: 100vw;
-  > * {
-    max-width: 100%;
-  }
 }
 
 body,
@@ -292,8 +289,8 @@ a {
 
     & .center,
     & footer {
-      max-width: 100%;
-      min-width: 100%;
+      max-width: 1fr;
+      min-width: 1fr;
       margin-left: auto;
       margin-right: auto;
       @media all and ($desktop) {
@@ -763,4 +760,27 @@ header {
 .article-title {
     font-family: "MapleMono" ;
     color: var(--tertiary);
+}
+
+
+@media (max-width: 750px) {
+  .page {
+    margin: 0 0.5rem !important;
+  }
+  .page > article {
+    width: 1fr !important;
+  }
+  .quartz-body {
+    margin: 0 !important;
+  }
+}
+
+.center {
+  box-sizing: border-box;
+  width: 1fr !important;
+  min-width: 0px !important;
+}
+
+.page > article {
+  width: 1fr !important;
 }
