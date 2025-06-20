@@ -225,7 +225,7 @@ a {
       gap: 2rem;
       top: 0;
       box-sizing: border-box;
-      padding: $topSpacing 2rem 2rem 2rem;
+      padding: $topSpacing 1rem 2rem 1rem;
       display: flex;
       height: 100vh;
       position: sticky;
@@ -301,7 +301,8 @@ a {
         margin-right: 0;
       }
       @media all and ($mobile) {
-        margin-left: 0;
+        margin-left: -1rem;
+        margin-right: 1rem;
       }
     }
     & footer {
@@ -764,6 +765,12 @@ header {
 .article-title {
     font-family: "MapleMono" ;
     color: var(--tertiary);
+}
+
+.article-title {
+  @media all and ($mobile) {
+    margin: 3rem 0rem 2rem 0rem!important;
+  }
 }
 
 
