@@ -39,6 +39,10 @@
   font-weight: 300;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
   text-size-adjust: none;
@@ -289,8 +293,8 @@ a {
 
     & .center,
     & footer {
-      max-width: 1fr;
-      min-width: 1fr;
+      max-width: calc(100vw - 4rem);
+      min-width: 100%;
       margin-left: auto;
       margin-right: auto;
       @media all and ($desktop) {
