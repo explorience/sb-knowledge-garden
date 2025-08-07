@@ -29,13 +29,13 @@ _A pattern for creating and managing group state for purpose aligned networks of
 
 ## Problem / Solution Context
 
-This pattern is designed to be used in the creation of [cells](artifacts/guides/dao-primitives-framework/group-primitives/cells.md) as [collaboration](artifacts/guides/dao-primitives-framework/group-scale/collaboration-scale.md) scale teams as described in the [DAO Primitives Framework](artifacts/guides/dao-primitives-frameworkindex.md)
+This pattern is designed to be used in the creation of [cells](artifacts/guides/dao-primitives-framework/group-primitives/cells.md) as [collaboration](artifacts/guides/dao-primitives-framework/group-scale/collaboration-scale.md) scale teams as described in the [DAO Primitives Framework](artifacts/guides/dao-primitives-framework/index.md)
 
 Capturing and maintaining a cell's state is fundamental to enabling both autonomous operation and effective network coordination within DAOs. A clear and consistent cell state document serves as a living state that enables the cell to maintain coherence while evolving and provides transparency for network-level coordination. Without documented state, Cells risk falling into internal dysfunction and lack of effectiveness. They also fail to fully leverage the value of coordination and efficient resource and information flows across the network.
 
 **The need for a consistent state template**
 
-Unless a team is highly skilled in organizational design, implementing the cell state primitive to create a useful group-state will be difficult and time consuming. On top of this, if teams are required to develop their own cell state document without additional supporting structure, there is a risk that there will not be enough consistency between the ways different teams document their state. This can prevent many of the interoperability benefits that the [DAO Primitives Framework](artifacts/guides/dao-primitives-frameworkindex.md) promises from being realized.
+Unless a team is highly skilled in organizational design, implementing the cell state primitive to create a useful group-state will be difficult and time consuming. On top of this, if teams are required to develop their own cell state document without additional supporting structure, there is a risk that there will not be enough consistency between the ways different teams document their state. This can prevent many of the interoperability benefits that the [DAO Primitives Framework](artifacts/guides/dao-primitives-framework/index.md) promises from being realized.
 
 To prevent this from happening we have developed this pattern as a template for teams to develop a simple and consistent cell state document to capture their group-state.
 
@@ -56,13 +56,13 @@ The cell's operating model - including its practices, protocols, roles, and cult
 **Progress (What)**
 The cell's actual achievements and impact - tracking initiatives, metrics, and value creation to enable accountability and adaptation.
 
-
 **Phase**
-The cell state document can serve 5 different purposes depending on the [phase](artifacts/guides/dao-primitives-framework/group-phase/group-phase.md) a group is at in its lifecycle: 
-1. As a collaborative document to start to gather thoughts and intentions for the group in the [conversation](artifacts/guides/dao-primitives-framework/group-phase/conversation-phase.md) phase 
-2. As a proposal template for a formal proposal to approve the establishment of the team in the [formation](artifacts/guides/dao-primitives-framework/group-phase/formation-phase.md) 
-3. As the structure within which to develop and record the team's specific agreements and plans during [organization](artifacts/guides/dao-primitives-framework/group-phase/organization-phase.md) phase 
-4. As the capture of the ongoing evolving current state of the operating group. Visible, public (to the extent that this is practical) interface for those coordinating with the group through [coordination](artifacts/guides/dao-primitives-framework/group-phase/coordination-phase.md)phase 
+The cell state document can serve 5 different purposes depending on the [phase](artifacts/guides/dao-primitives-framework/group-phase/index.md) a group is at in its lifecycle:
+
+1. As a collaborative document to start to gather thoughts and intentions for the group in the [conversation](artifacts/guides/dao-primitives-framework/group-phase/conversation-phase.md) phase
+2. As a proposal template for a formal proposal to approve the establishment of the team in the [formation](artifacts/guides/dao-primitives-framework/group-phase/formation-phase.md)
+3. As the structure within which to develop and record the team's specific agreements and plans during [organization](artifacts/guides/dao-primitives-framework/group-phase/organization-phase.md) phase
+4. As the capture of the ongoing evolving current state of the operating group. Visible, public (to the extent that this is practical) interface for those coordinating with the group through [coordination](artifacts/guides/dao-primitives-framework/group-phase/coordination-phase.md)phase
 5. As the final record that archives what the group has achieved and who contributed to these achievements through[completion](artifacts/guides/dao-primitives-framework/group-phase/completion-phase.md) phase
 
 ## Components of group state
@@ -133,6 +133,7 @@ The tools and practices by which the team achieves and demonstrates progress. Th
 
 **Balancing costs & benefits**
 A careful balancing of the cost of creating and maintaining cell state vs the gains from better collaboration and coordination is required. If too much emphasis is put on creating and maintaining group-state then it can become overly burdensome and counter productive. But if group-state is not sufficiently detailed it will fail to offer the collaboration and coordination benefits desired.
+
 ### Risks
 
 **State-bloat** - Teams can over-index on process related to state creating unnecessary operational overhead
@@ -151,8 +152,6 @@ A careful balancing of the cost of creating and maintaining cell state vs the ga
 
 - Onchain data, via the use of crypto primitives, also allows for more automation, trustless interoperability and potential collective intelligence across the larger network that the group is coordinating inside.
 
-
-
 ---
 
 ## Implementation
@@ -163,7 +162,7 @@ A careful balancing of the cost of creating and maintaining cell state vs the ga
 
 There are several variables that will influence what and how much detail a team will choose to include in it's group state. These can include:
 
-- **Phase of development** - a Cell in an early [phase](artifacts/guides/dao-primitives-framework/group-phase/group-phase.md) of development may require less specific detail, reflecting its lack of formal structure, compared to an mature operational Cell.
+- **Phase of development** - a Cell in an early [phase](artifacts/guides/dao-primitives-framework/group-phase/index.md) of development may require less specific detail, reflecting its lack of formal structure, compared to an mature operational Cell.
 - **Responsibilities to outside entities** - Cells may require specific information to be included in their group-state based on agreements they have with entities they are coordinating with.
 - **Amount of resources managed** - a Cell with a large treasury would likely require more rigorous decision-making and treasury management practices to be included in its group-state
 
@@ -183,8 +182,6 @@ To deliver the above, ideally a Cell's state will be stored in a digital platfor
 - **Version control and attribution** - the ability to see past versions of the document and potentially roll back changes made to it. Seeing the evolution of decisions and changes made to the group over time is important for audit-ability of the group state. It also ensure that the document can be reverted if it includes accidental on deliberate errors occur.
 - **Links to specific documents and applications** - rather than trying to include large amounts of operational information, the group state document should list and link to the different applications that the group is using to manage its work. E.g project management, treasury management, comms platforms etc
 
-
-
 ```dataview
 LIST description
 WHERE (
@@ -198,4 +195,3 @@ AND (
     AND !contains(file.path, "drafts/")
 )
 ```
-

@@ -11,6 +11,7 @@ publish: true
 type: guide
 ---
 
+
 # Implementation Guide for Operational Governance Using the DAO Primitives Framework
 
 ## Introduction
@@ -23,9 +24,15 @@ We have identified and experimented with using the DAO primitives framework to p
 
 Guides to setting up these 3 interlocking governance structures can be found here:
 
+<<<<<<<< HEAD:artifacts/guides/dao-primitives-framework/dao-primitives-implemention/implementation-guide-operational-governance.md
 - [Implementation-guide-operational-governance](artifacts/guides/dao-primitives-framework/dao-primitives-implemention/implementation-guide-operational-governance.md) (this guide)
 - [Implementation-guide-multi-stakeholder-governance](artifacts/guides/dao-primitives-framework/dao-primitives-implemention/implementation-guide-multi-stakeholder-governance.md)
 - [Implementation-guide-community-governance](artifacts/guides/dao-primitives-framework/dao-primitives-implemention/implementation-guide-community-governance.md)
+========
+- [Implementation-guide-operational-governance](notes/dao-primitives/implementation/guides/governance/implementation-guide-operational-governance.md) (this guide)
+- [Implementation-guide-multi-stakeholder-governance](notes/dao-primitives/implementation/guides/governance/implementation-guide-multi-stakeholder-governance.md)
+- [Implementation-guide-community-governance](notes/dao-primitives/implementation/guides/governance/implementation-guide-community-governance.md)
+>>>>>>>> 6d1abc90f8826bfd258c7e0563cd4536a5f09d86:notes/dao-primitives/implementation/guides/governance/implementation-guide-operational-governance.md
 
 This guide focuses on setting up an Operational Governance structure. This approach can be used both as part of the above layered governance system, outlined above, or alternatively, this guide can be used to create an operational structure to interface with different approaches to community and multi-stakeholder governance.
 
@@ -97,13 +104,13 @@ To do this we compose together organizational infrastructures (social and techni
 **Infrastructure**
 
 - **Social**
-  - Social primitives, protocols and practices
+    - Social primitives, protocols and practices
 - **Technical**
-  - Immutable/open ledgers (permissionless blockchains)
-  - Tokenized value flows (tokens)
-  - Digital identity (wallets)
-  - Trustful computation (smart contracts)
-  - Privacy preserving technology (ZK)
+    - Immutable/open ledgers (permissionless blockchains)
+    - Tokenized value flows (tokens)
+    - Digital identity (wallets)
+    - Trustful computation (smart contracts)
+    - Privacy preserving technology (ZK)
 
 ### Operational Governance Overview: Three-Layer Structure
 
@@ -162,48 +169,48 @@ With your purpose and goals established, the next step is defining specific requ
 For each high-level goal, identify concrete requirements across these dimensions:
 
 1. **Scale and Scope**: Consider the following questions:
-   - Do you want to create a large network that will do many different things, or a tight network that will do a few things really well?
-   - Do you want the network to be highly efficient, highly flexible or highly creative?
-   - Do you want to highly prioritize community engagement and democratic decision-making or should it be tightly controlled by a specific group of stakeholders?
-   - Do you expect large amounts of money to flow through the network?
-   - Who are the stakeholders who will participate in the operational network?
-   - Are there particularly sensitive people, communities or materials that need to be protected or secured?
+    - Do you want to create a large network that will do many different things, or a tight network that will do a few things really well?
+    - Do you want the network to be highly efficient, highly flexible or highly creative?
+    - Do you want to highly prioritize community engagement and democratic decision-making or should it be tightly controlled by a specific group of stakeholders?
+    - Do you expect large amounts of money to flow through the network?
+    - Who are the stakeholders who will participate in the operational network?
+    - Are there particularly sensitive people, communities or materials that need to be protected or secured?
 2. **Decision Scope**: What types of decisions need operational governance?
-   - Strategic implementation decisions
-   - Resource allocation within operations
-   - Process standards and protocols
-   - [Coordination](tags/coordination.md) between [cells](tags/roles.md)
-   - Conflict resolution between teams
+    - Strategic implementation decisions
+    - Resource allocation within operations
+    - Process standards and protocols
+    - [Coordination](tags/coordination.md) between [cells](tags/roles.md)
+    - Conflict resolution between teams
 3. **Stakeholder Inclusion**: Who needs representation in operational governance?
-   - [Cell](tags/roles.md) leads/representatives
-   - Team members
-   - Subject matter experts
-   - Community representatives
-   - Resource providers
+    - [Cell](tags/roles.md) leads/representatives
+    - Team members
+    - Subject matter experts
+    - Community representatives
+    - Resource providers
 4. **Time Horizons**: What timeframes must governance address?
-   - Short-term tactical decisions
-   - Medium-term implementation planning
-   - Iteration and adaptation cycles
+    - Short-term tactical decisions
+    - Medium-term implementation planning
+    - Iteration and adaptation cycles
 5. **Resource Considerations**: What resources will governance manage?
-   - Financial assets
-   - Digital infrastructure
-   - Human resources
-   - Knowledge/information
-   - Technical tools
+    - Financial assets
+    - Digital infrastructure
+    - Human resources
+    - Knowledge/information
+    - Technical tools
 6. **Desired Dynamics**: Based on your requirements, which organizational dynamics do you want to prioritize?
-   - Decentralized decision-making
-   - Autonomy
-   - Creative innovation
-   - Economies of scale
-   - Permissionless innovation
-   - Flexibility/adaptability
-   - Network effects
-   - Fractal scaling
+    - Decentralized decision-making
+    - Autonomy
+    - Creative innovation
+    - Economies of scale
+    - Permissionless innovation
+    - Flexibility/adaptability
+    - Network effects
+    - Fractal scaling
 7. **Desired System Properties**: Which system properties would you like your network to produce?
-   - Collective/network intelligence
-   - Evolving/adapting systems
-   - Regenerative economics
-   - System level impact
+    - Collective/network intelligence
+    - Evolving/adapting systems
+    - Regenerative economics
+    - System level impact
 
 Document these requirements in a structured format that can be referenced throughout the design process.
 
@@ -216,20 +223,20 @@ With clear purpose, goals, and requirements established, you can now design your
 There are many ways that you can use the [DAO primitives](artifacts/guides/dao-primitives-framework/index.md) to construct a network of operational teams. The particular system you put together will reflect both the specific realities of the work and the ways in which members want to work together:
 
 1. **Highly structured top-down decision-making**
-   - If a lot of control is desired (optimizing for operational efficiency over creativity and flexibility)
-   - Build hierarchies of [cells](tags/roles.md) that answer to cells above them
-   - Could resemble a traditional corporate org chart
-   - However, if implementing DAO primitives, you likely don't want to just recreate a traditional hierarchy
-   - May have some aspects that operate in a strictly controlled manner
+    - If a lot of control is desired (optimizing for operational efficiency over creativity and flexibility)
+    - Build hierarchies of [cells](tags/roles.md) that answer to cells above them
+    - Could resemble a traditional corporate org chart
+    - However, if implementing DAO primitives, you likely don't want to just recreate a traditional hierarchy
+    - May have some aspects that operate in a strictly controlled manner
 2. **Highly unconstrained networks**
-   - DAO primitives can create networks that are maximally autonomous and permissionless
-   - Free-forming of [cells](tags/roles.md) that coordinate without constraints from the larger network
-   - Emphasizes creative innovation and rapid adaptation
+    - DAO primitives can create networks that are maximally autonomous and permissionless
+    - Free-forming of [cells](tags/roles.md) that coordinate without constraints from the larger network
+    - Emphasizes creative innovation and rapid adaptation
 3. **A combination of top-down and bottom-up decision-making**
-   - This is what the DAO primitives framework is designed to facilitate
-   - Build a network that flexibly uses different types of constraints
-   - Allow more or less autonomy based on specific operational needs
-   - Balance unlocks the dynamics and system properties listed earlier
+    - This is what the DAO primitives framework is designed to facilitate
+    - Build a network that flexibly uses different types of constraints
+    - Allow more or less autonomy based on specific operational needs
+    - Balance unlocks the dynamics and system properties listed earlier
 
 See [index](artifacts/patterns/index.md) for different approaches to building operational structures with the DAO Primitives.
 
@@ -238,25 +245,25 @@ See [index](artifacts/patterns/index.md) for different approaches to building op
 Using the [DAO primitives framework](artifacts/guides/dao-primitives-framework/index.md), design a structure that implements a network of operational [Cells](tags/roles.md). It needs to cover four different levels of scale:
 
 1. **Community governance level ([constituency scale](tags/groups.md#groups-at-different-scales))**
-   - How community decision-making translates into instructions for the operational network
-   - What network-wide constraints will community governance impose
-   - How resources and value will flow from community governance into operations
-   - _See [Community Governance](tags/governance.md#community-governanceartifactspatternscommunity-governancemd) pattern and implementation guide_
+    - How community decision-making translates into instructions for the operational network
+    - What network-wide constraints will community governance impose
+    - How resources and value will flow from community governance into operations
+    - _See [Community Governance](tags/governance.md#community-governanceartifactspatternscommunity-governancemd) pattern and implementation guide_
 2. **Cell coordination level ([coordination scale](tags/groups.md#groups-at-different-scales))**
-   - How the operational network connects with community governance
-     - Perhaps via a top-level [Cell](tags/roles.md) that takes instruction from community governance
-     - Or different functional areas that each take instructions from community governance
-   - How resources and value flow through the operational network
-   - How strategy is created
-   - What legal status the operational governance will have
-   - Define what being a member of the operational network entails
-   - Define the initial structure of [Cells](tags/roles.md) needed to instantiate operations
+    - How the operational network connects with community governance
+        - Perhaps via a top-level [Cell](tags/roles.md) that takes instruction from community governance
+        - Or different functional areas that each take instructions from community governance
+    - How resources and value flow through the operational network
+    - How strategy is created
+    - What legal status the operational governance will have
+    - Define what being a member of the operational network entails
+    - Define the initial structure of [Cells](tags/roles.md) needed to instantiate operations
 3. **Cell level ([collaboration scale](tags/groups.md#groups-at-different-scales))**
-   - Define minimum information standards (state) expected of [Cells](tags/roles.md)
-   - Create templates or archetypal [Cell](tags/roles.md) types to standardize new Cells
+    - Define minimum information standards (state) expected of [Cells](tags/roles.md)
+    - Create templates or archetypal [Cell](tags/roles.md) types to standardize new Cells
 4. **Partnerships level (network scale)**
-   - Design a mechanism for [Cells](tags/roles.md) to partner with other organizations and networks
-   - _See [Multi-Stakeholder Governance](tags/governance.md#multi-stakeholder-governance) Implementation Guide_
+    - Design a mechanism for [Cells](tags/roles.md) to partner with other organizations and networks
+    - _See [Multi-Stakeholder Governance](tags/governance.md#multi-stakeholder-governance) Implementation Guide_
 
 #### Sense-making Tools
 
@@ -400,49 +407,47 @@ Depending on your organization's technical context, governance implementation ma
 #### Technical Considerations
 
 1. **On-chain vs. off-chain governance**
-   - Determine which governance elements require blockchain properties and which can be better done off-chain
-   - Consider speed and costs involved in using on-chain tools
-   - Ensure technical accessibility for all operational participants
-   - Scale considerations - smaller scales can leverage relationship based trust more effectively than larger scales
+    - Determine which governance elements require blockchain properties and which can be better done off-chain
+    - Consider speed and costs involved in using on-chain tools
+    - Ensure technical accessibility for all operational participants
+    - Scale considerations - smaller scales can leverage relationship based trust more effectively than larger scales
 2. **Tool Selection** Here are some potential tool options for different core operational governance functions: a. **Knowledge repository**
-
-   - Where information about the operational network can be articulated and shared
-   - Examples: Charmverse, Notion, Google Docs
-
-   b. **[Cell](tags/roles.md) state repository**
-
-   - A mechanism for containing and updating [Cell](tags/roles.md) state
-   - Ideally editor controlled and version controlled but accessible to the network
-   - Examples: Shared information platforms like Gitbook, Charmverse, Notion
-
-   c. **Proposal creation and voting tools**
-
-   - Examples: Charmverse, Snapshot
-
-   d. **Token based authority and access tools**
-
-   - To manage access to communication channels, documents, voting rights
-   - Example: Hats protocol
-
-   e. **Communication platforms**
-
-   - Communication will happen at different scales
-   - Choose one platform or a combination of several different platforms
-   - Example: Discord is useful because it can be set up to cover all three scales with granular access control
-
-   f. **Treasury management**
-
-   - The operational network will need to secure and manage resource flows
-   - Example: Safe - multisig wallet infrastructure
-   - Governance platforms (Snapshot, Tally, Commonwealth, etc.)
-   - Communication tools (Discord, Discourse, Telegram, etc.)
-   - Documentation systems (Charmverse, Notion, GitHub, etc.)
-   - Voting mechanisms ([token-based governance](artifacts/articles/network-evolution/Building DAOs as scalable networks.md#community-governance), [quadratic voting](artifacts/articles/governance-for-better-futures/Governance for better futures - Meta-governance.md#quadratic-voting), reputation-based, etc.)
-
+    
+    - Where information about the operational network can be articulated and shared
+    - Examples: Charmverse, Notion, Google Docs
+    
+    b. **[Cell](tags/roles.md) state repository**
+    
+    - A mechanism for containing and updating [Cell](tags/roles.md) state
+    - Ideally editor controlled and version controlled but accessible to the network
+    - Examples: Shared information platforms like Gitbook, Charmverse, Notion
+    
+    c. **Proposal creation and voting tools**
+    
+    - Examples: Charmverse, Snapshot
+    
+    d. **Token based authority and access tools**
+    
+    - To manage access to communication channels, documents, voting rights
+    - Example: Hats protocol
+    
+    e. **Communication platforms**
+    
+    - Communication will happen at different scales
+    - Choose one platform or a combination of several different platforms
+    - Example: Discord is useful because it can be set up to cover all three scales with granular access control
+    
+    f. **Treasury management**
+    - The operational network will need to secure and manage resource flows
+    - Example: Safe - multisig wallet infrastructure
+    - Governance platforms (Snapshot, Tally, Commonwealth, etc.)
+    - Communication tools (Discord, Discourse, Telegram, etc.)
+    - Documentation systems (Charmverse, Notion, GitHub, etc.)
+    - Voting mechanisms ([token-based governance](artifacts/articles/network-evolution/Building DAOs as scalable networks.md#community-governance), [quadratic voting](artifacts/articles/governance-for-better-futures/Governance for better futures - Meta-governance.md), reputation-based, etc.)
 3. **Implementation Approach**
-   - Start with minimum viable governance tools as required by the [phase](tags/groups.md#groups-in-developmental-phases) of development
-   - Create clear user guides, videos and other resources to support accessibility for all community members
-   - Establish support/help systems for technical assistance
+    - Start with minimum viable governance tools as required by the [phase](tags/groups.md#groups-in-developmental-phases) of development
+    - Create clear user guides, videos and other resources to support accessibility for all community members
+    - Establish support/help systems for technical assistance
 
 ## 5. Launch & Evolution
 
@@ -505,10 +510,10 @@ We recommend utilizing the support of an experienced facilitator. Get in touch w
 There is an emerging knowledge commons designed to support and guide the creation of decentralized governance models like this
 
 1. **Online Resources**:
-   - See SuperBenefit's knowledge garden for specific tools, templates, case studies, playbooks and patterns to support your community governance design (like this implementation guide)
-   - Other web3 communities also have valuable resources for community governance organizing:
-   - OpenCivics
-   - Others
+    - See SuperBenefit's knowledge garden for specific tools, templates, case studies, playbooks and patterns to support your community governance design (like this implementation guide)
+    - Other web3 communities also have valuable resources for community governance organizing:
+    - OpenCivics
+    - Others
 2. **Peer networks** - finding other organizations who have developed their own community governance structures can offer insights and guidance. SuperBenefit's network can provide connection to many such organizations
 
 ### Technical Support Options
@@ -524,3 +529,23 @@ The key to successful operational governance design is creating structures that 
 The patterns and primitives outlined in the DAO primitives framework provide a foundation for composing operational structures that can reliably produce the organizational dynamics needed to tackle complex challenges—from decentralized decision-making and creative innovation to economies of scale and adaptive capacity.
 
 Remember that operational governance is fundamentally about unleashing human potential through better [coordination](tags/coordination.md). Start with clear purpose alignment and basic coordination mechanisms, then evolve your operational structure based on real experience and feedback from the teams doing the work. The most effective operational governance emerges when autonomous teams have both the freedom to innovate and the support to coordinate effectively.
+
+May your operational governance implementation create the conditions for your network to execute brilliantly, adapt continuously, and achieve meaningful impact in the world.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
