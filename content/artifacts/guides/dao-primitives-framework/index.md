@@ -14,7 +14,7 @@ tags:
 
 # DAO Primitives Conceptual Framework
 
-The DAO Primitives Framework provides a systematic approach to designing and implementing decentralized organizations as purpose-aligned networks. Building on the overview provided in the [DAO Primitives Project](notes/dao-primitives/dao-primitives.md), this framework offers a deeper exploration of the key concepts, dimensions, and components that enable effective decentralized coordination.
+The DAO Primitives Framework provides a systematic approach to designing and implementing decentralized organizations as purpose-aligned networks. Building on the overview provided in the [DAO Primitives Project](notes/dao-primitives/index.md), this framework offers a deeper exploration of the key concepts, dimensions, and components that enable effective decentralized coordination.
 
 # DAO Primitives Overview
 
@@ -47,7 +47,7 @@ At its core, the DAO Primitives Framework is built around two complementary elem
 Together, these elements provide a flexible yet coherent approach to designing decentralized organizations that can harness collective intelligence while maintaining purpose alignment across diverse and distributed teams.
 
 ## Dimensional Lense
-### 1\.  [Group Phase](artifacts/guides/dao-primitives-framework/group-phase/group-phase.md)
+### 1\.  [Group Phase](artifacts/guides/dao-primitives-framework/group-phase/index.md)
 
 Group Phase recognizes that organizations evolve through distinct developmental stages, each with its own characteristics and needs. Understanding where a group is in its journey helps select appropriate tools, practices, and structures.
 
@@ -58,10 +58,10 @@ The framework identifies five key phases:
 - **[Coordination Phase](artifacts/guides/dao-primitives-framework/group-phase/coordination-phase.md)**: Integrating with broader networks and collaborating with other groups, shifting focus from internal organization to external relationships
 - **[Completion Phase](artifacts/guides/dao-primitives-framework/group-phase/completion-phase.md)**: Concluding initiatives, capturing learnings, and transitioning resources when projects or groups reach their natural conclusion
 
-Learn more about [Group Phase](artifacts/guides/dao-primitives-framework/group-phase/group-phase.md)
+Learn more about [Group Phase](artifacts/guides/dao-primitives-framework/group-phase/index.md)
 
 
-### 2\. [Group Scale](artifacts/guides/dao-primitives-framework/group-scale/group-scale.md)
+### 2\. [Group Scale](artifacts/guides/dao-primitives-framework/group-scale/index.md)
 Group Scale acknowledges that the size and complexity of a group fundamentally affects how it functions. Different scales require different approaches to communication, decision-making, and coordination.
 
 The framework identifies four distinct scales:
@@ -73,7 +73,7 @@ The framework identifies four distinct scales:
 
 Most contexts require organizations operate at multiple scales simultaneously, with different functions happening at different scales. The DAO primitives framework helps design appropriate coordination mechanisms for each scale.
 
-Learn more about [Group Scale](artifacts/guides/dao-primitives-framework/group-scale/group-scale.md)
+Learn more about [Group Scale](artifacts/guides/dao-primitives-framework/group-scale/index.md)
 
 
 ### 3\. [Group State](artifacts/guides/dao-primitives-framework/group-state.md)
@@ -123,7 +123,7 @@ The facilitation process typically involves:
 
 1. **Assessing Context**: Understanding the group's current phase, scale, and state
 2. **Identifying Needs**: Determining the most pressing challenges and opportunities
-3. **Selecting Patterns**: Choosing appropriate organizational patterns from the [Pattern Library](notes/dao-primitives/implementation/patterns/patterns.md)
+3. **Selecting Patterns**: Choosing appropriate organizational patterns from the [Pattern Library](notes/dao-primitives/implementation/patterns/index.md)
 4. **Implementing Solutions**: Adapting and applying these patterns to the specific context
 5. **Evolving & Iterating**: Continuously refining the approach based on feedback
 
@@ -197,8 +197,8 @@ This multi-scale approach allows organizations to achieve:
 
 The framework is supported by a rich ecosystem of related resources:
 
-- The [Pattern Library](notes/dao-primitives/implementation/patterns/patterns.md) provides reusable solutions to common organizational challenges
-- The [Implementation](notes/dao-primitives/implementation/implementation.md) section offers practical guides and case studies
-- The [Resources](notes/dao-primitives/resources/resources.md) section provides templates and tools for implementation
+- The [Pattern Library](notes/dao-primitives/implementation/patterns/index.md) provides reusable solutions to common organizational challenges
+- The [Implementation](notes/dao-primitives/implementation/index.md) section offers practical guides and case studies
+- The [Resources](notes/dao-primitives/resources/index.md) section provides templates and tools for implementation
 
 Together, these resources form a comprehensive toolkit for designing, implementing, and evolving decentralized organizations that can effectively harness collective intelligence while maintaining purpose alignment.

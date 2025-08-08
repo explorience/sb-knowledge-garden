@@ -30,9 +30,15 @@ We have identified and experimented with using the DAO primitives framework to p
 
 Guides to setting up these 3 interlocking governance structures can be found here:
 
+<<<<<<<< HEAD:artifacts/guides/dao-primitives-framework/dao-primitives-implemention/implementation-guide-multi-stakeholder-governance.md
 - [Implementation-guide-operational-governance](artifacts/guides/dao-primitives-framework/dao-primitives-implemention/implementation-guide-operational-governance.md)
 - [Implementation-guide-multi-stakeholder-governance](artifacts/guides/dao-primitives-framework/dao-primitives-implemention/implementation-guide-multi-stakeholder-governance.md) (this guide)
 - [Implementation-guide-community-governance](artifacts/guides/dao-primitives-framework/dao-primitives-implemention/implementation-guide-community-governance.md)
+========
+- [Implementation-guide-operational-governance](notes/dao-primitives/implementation/guides/governance/implementation-guide-operational-governance.md)
+- [Implementation-guide-multi-stakeholder-governance](notes/dao-primitives/implementation/guides/governance/implementation-guide-multi-stakeholder-governance.md) (this guide)
+- [Implementation-guide-community-governance](notes/dao-primitives/implementation/guides/governance/implementation-guide-community-governance.md)
+>>>>>>>> 6d1abc90f8826bfd258c7e0563cd4536a5f09d86:notes/dao-primitives/implementation/guides/governance/implementation-guide-multi-stakeholder-governance.md
 
 There are many different ways to think about how to implement effective multi-stakeholder governance. This approach is built around experiments that SuperBenefit has done in creating multi-stakeholder partnerships between web3 and non-web3 organizations to experiment on new governance structures and approaches.
 
@@ -143,13 +149,13 @@ To do this we compose together organizational infrastructures (social and techni
 **Infrastructure**
 
 - **Social**
-  - Social primitives, protocols and practices
+    - Social primitives, protocols and practices
 - **Technical**
-  - Immutable/open ledgers (permissionless blockchains)
-  - Tokenized value flows (tokens)
-  - Digital identity (wallets)
-  - Trustful computation (smart contracts)
-  - Privacy preserving technology (ZK)
+    - Immutable/open ledgers (permissionless blockchains)
+    - Tokenized value flows (tokens)
+    - Digital identity (wallets)
+    - Trustful computation (smart contracts)
+    - Privacy preserving technology (ZK)
 
 ### Multi-Stakeholder Governance Overview: Three-Layer Structure
 
@@ -213,30 +219,30 @@ With your purpose and goals established, the next step is defining specific requ
 Based on the purpose and high-level goals for the multi-stakeholder governance, map the requirements of the system:
 
 1. **Decision Scope**: What types of decisions will be made at which level of governance and with what consultation?
-   - Purpose definition and evolution
-   - Resource allocation
-   - Changes to fundamental [agreements](tags/agreements.md)
-   - Conflict resolution
+    - Purpose definition and evolution
+    - Resource allocation
+    - Changes to fundamental [agreements](tags/agreements.md)
+    - Conflict resolution
 2. **Stakeholder Inclusion**: Who needs representation in the stakeholder group?
-   - Financial contributors
-   - Strategic partners
-   - Domain experts
-   - Community representatives
+    - Financial contributors
+    - Strategic partners
+    - Domain experts
+    - Community representatives
 3. **Time Horizons**: What timeframes must governance address and at which levels of governance?
-   - Long-term purpose stewardship (years)
-   - Medium-term strategic cycles (quarters)
-   - Short-term operational decisions (weeks/months)
+    - Long-term purpose stewardship (years)
+    - Medium-term strategic cycles (quarters)
+    - Short-term operational decisions (weeks/months)
 4. **Resource Considerations**: What resources will governance manage and at which levels of governance?
-   - Financial treasury
-   - Reputation and social capital
-   - Network relationships
-   - Intellectual property
-   - Technical infrastructure
+    - Financial treasury
+    - Reputation and social capital
+    - Network relationships
+    - Intellectual property
+    - Technical infrastructure
 5. **Technical Constraints**: What technical factors shape implementation options?
-   - Web3 literacy of participants
-   - On-chain vs. off-chain governance components
-   - Integration requirements with existing systems
-   - Security and access control needs
+    - Web3 literacy of participants
+    - On-chain vs. off-chain governance components
+    - Integration requirements with existing systems
+    - Security and access control needs
 
 Document these requirements in a structured format that can be referenced throughout the design process.
 
@@ -286,10 +292,10 @@ Clearly delineate which decisions belong to each governance layer: _(Note - thes
 #### Stakeholder Group and TLC Coordination
 
 1. Set up optimistic governance [agreements](tags/agreements.md) and processes
-   - Create standardized proposal template
-   - Set review period, feedback process, quorum etc
-   - Define valid rejection criteria
-   - Establish escalation path for disputed proposals
+    - Create standardized proposal template
+    - Set review period, feedback process, quorum etc
+    - Define valid rejection criteria
+    - Establish escalation path for disputed proposals
 2. Set up [agreements](tags/agreements.md) and processes for treasury management and token transfers
 
 #### Cell Network Design
@@ -298,9 +304,9 @@ Clearly delineate which decisions belong to each governance layer: _(Note - thes
 2. Establish [cell](tags/roles.md) [coordination](tags/coordination.md) mechanisms
 3. Create resource request protocols
 4. Set up shared tools
-   - Inter-cell communication channels
-   - Document repositories
-   - Treasury management tools
+    - Inter-cell communication channels
+    - Document repositories
+    - Treasury management tools
 
 #### Activity: Governance Structure Documentation
 
@@ -334,19 +340,19 @@ Implementation should follow a phased approach that allows for learning and adap
 #### Phase 2: [Formation](tags/groups.md#groups-in-developmental-phases)
 
 - Formalize Stakeholder Group
-  - Define purpose and high-level goals
-  - Create initial proposal process
-  - Establish Top Level Cell - core [agreements](tags/agreements.md) between SHG and TLC
-  - Set up SHG treasury management and processes
+    - Define purpose and high-level goals
+    - Create initial proposal process
+    - Establish Top Level Cell - core [agreements](tags/agreements.md) between SHG and TLC
+    - Set up SHG treasury management and processes
 
 #### Phase 3: [Organization](tags/groups.md#groups-in-developmental-phases)
 
 - Formalize Top Level Cell
-  - TLC develops strategy
-  - Implements operational structure - creates first operational [Cells](tags/roles.md) in the network
-  - Establishes treasury management and resource allocation processes
-  - Formalize documentation and processes in Cell state
-  - Establish communication channels and other [coordination](tags/coordination.md) tooling
+    - TLC develops strategy
+    - Implements operational structure - creates first operational [Cells](tags/roles.md) in the network
+    - Establishes treasury management and resource allocation processes
+    - Formalize documentation and processes in Cell state
+    - Establish communication channels and other [coordination](tags/coordination.md) tooling
 
 #### Phase 4: [Coordination](tags/groups.md#groups-in-developmental-phases)
 
@@ -355,8 +361,6 @@ Implementation should follow a phased approach that allows for learning and adap
 - Ongoing budget proposals put up by TLC to SHG
 - Operational network recruits contributors and partners from across wider community network
 - Ongoing review and evolution of both stakeholder group and operational governance as the partnership progresses
-
-For an example of a multi-stakeholder governance set up see [RPP Governance Case Study](artifacts/studies/projects/rpp-governance-case-study.md)
 
 ### State Documentation
 
@@ -383,49 +387,47 @@ If you are setting up multi-stakeholder governance inside an existing [DAO](tags
 #### Technical Considerations
 
 1. **On-chain vs. off-chain governance**
-   - Determine which governance elements require blockchain properties and which can be better done off-chain
-   - Consider speed and costs involved in using on-chain tools
-   - Ensure technical accessibility for all participants
-   - Scale considerations - smaller scales can leverage relationship based trust more effectively than larger scales
+    - Determine which governance elements require blockchain properties and which can be better done off-chain
+    - Consider speed and costs involved in using on-chain tools
+    - Ensure technical accessibility for all participants
+    - Scale considerations - smaller scales can leverage relationship based trust more effectively than larger scales
 2. **Tool Selection** Here are some potential tool options for different core governance functions: a. **Knowledge repository**
-
-   - Where information about the operational network can be articulated and shared
-   - Examples: Charmverse, Notion, Google Docs
-
-   b. **[Cell](tags/roles.md) state repository**
-
-   - A mechanism for containing and updating Cell state
-   - Ideally editor controlled and version controlled but accessible to the network
-   - Examples: Shared information platforms like Gitbook, Charmverse, Notion
-
-   c. **Proposal creation and voting tools**
-
-   - Examples: Charmverse, Snapshot
-
-   d. **Token based authority and access tools**
-
-   - To manage access to communication channels, documents, voting rights
-   - Example: Hats protocol
-
-   e. **Communication platforms**
-
-   - Communication will happen at different [scales](tags/groups.md#groups-at-different-scales)
-   - Choose one platform or a combination of several different platforms
-   - Example: Discord is useful because it can be set up to cover all three scales with granular access control
-
-   f. **Treasury management**
-
-   - The operational network will need to secure and manage resource flows
-   - Example: Safe - multisig wallet infrastructure
-   - Governance platforms (Snapshot, Tally, Commonwealth, etc.)
-   - Communication tools (Discord, Discourse, Telegram, etc.)
-   - Documentation systems (Charmverse, Notion, GitHub, etc.)
-   - Voting mechanisms ([token-based](artifacts/articles/network-evolution/Building DAOs as scalable networks.md#community-governance), [quadratic](artifacts/articles/governance-for-better-futures/Governance for better futures - Meta-governance.md#quadratic-voting), reputation-based, etc.)
-
+    
+    - Where information about the operational network can be articulated and shared
+    - Examples: Charmverse, Notion, Google Docs
+    
+    b. **[Cell](tags/roles.md) state repository**
+    
+    - A mechanism for containing and updating Cell state
+    - Ideally editor controlled and version controlled but accessible to the network
+    - Examples: Shared information platforms like Gitbook, Charmverse, Notion
+    
+    c. **Proposal creation and voting tools**
+    
+    - Examples: Charmverse, Snapshot
+    
+    d. **Token based authority and access tools**
+    
+    - To manage access to communication channels, documents, voting rights
+    - Example: Hats protocol
+    
+    e. **Communication platforms**
+    
+    - Communication will happen at different [scales](tags/groups.md#groups-at-different-scales)
+    - Choose one platform or a combination of several different platforms
+    - Example: Discord is useful because it can be set up to cover all three scales with granular access control
+    
+    f. **Treasury management**
+    - The operational network will need to secure and manage resource flows
+    - Example: Safe - multisig wallet infrastructure
+    - Governance platforms (Snapshot, Tally, Commonwealth, etc.)
+    - Communication tools (Discord, Discourse, Telegram, etc.)
+    - Documentation systems (Charmverse, Notion, GitHub, etc.)
+    - Voting mechanisms ([token-based](artifacts/articles/network-evolution/Building DAOs as scalable networks.md#community-governance), [quadratic](artifacts/articles/governance-for-better-futures/Governance for better futures - Meta-governance.md#quadratic-voting), reputation-based, etc.)
 3. **Implementation Approach**
-   - Start with minimum viable governance tools as required by the [phase](tags/groups.md#groups-in-developmental-phases) of development
-   - Create clear user guides, videos and other resources to support accessibility for all community members
-   - Establish support/help systems for technical assistance
+    - Start with minimum viable governance tools as required by the [phase](tags/groups.md#groups-in-developmental-phases) of development
+    - Create clear user guides, videos and other resources to support accessibility for all community members
+    - Establish support/help systems for technical assistance
 
 ## 5. Launch & Evolution
 
@@ -455,22 +457,22 @@ However the system is structured, it is important to have feedback mechanisms th
 Depending on the size of the partnership here are some potential feedback mechanisms to design in:
 
 1. **Governance Retrospectives**
-   - Regular sessions reviewing governance effectiveness
-   - Documentation of lessons learned
-   - Diverse participation ensuring multiple community perspectives
+    - Regular sessions reviewing governance effectiveness
+    - Documentation of lessons learned
+    - Diverse participation ensuring multiple community perspectives
 2. **Participant Surveys**
-   - Periodic assessment of wider community members' satisfaction with governance systems
-   - Gaining feedback from the broader community
-   - Identification of friction points and barriers and tracking of sentiment trends over time
+    - Periodic assessment of wider community members' satisfaction with governance systems
+    - Gaining feedback from the broader community
+    - Identification of friction points and barriers and tracking of sentiment trends over time
 3. **Performance Metrics**
-   - Tracking effectiveness of governance processes through stages
-   - Measuring participation rates across community in proposal voting etc
-   - Tracking the allocation of resources throughout the network
-   - On-chain systems providing verifiable data on governance performance
+    - Tracking effectiveness of governance processes through stages
+    - Measuring participation rates across community in proposal voting etc
+    - Tracking the allocation of resources throughout the network
+    - On-chain systems providing verifiable data on governance performance
 4. **Open Feedback Channels**
-   - Creating accessible mechanisms for ongoing community and operational contributor input
-   - Clear processes for raising and addressing concerns
-   - Transparent tracking of feedback response so community, open processes
+    - Creating accessible mechanisms for ongoing community and operational contributor input
+    - Clear processes for raising and addressing concerns
+    - Transparent tracking of feedback response so community, open processes
 
 ### Adaptation Processes
 
@@ -498,10 +500,10 @@ Implementing multi-stakeholder governance is complex work. Fortunately, numerous
 There is an emerging knowledge commons designed to support and guide the creation of decentralized governance models like this
 
 1. **Online Resources**:
-   - See SuperBenefit's knowledge garden for specific tools, templates, case studies, playbooks and patterns to support your community governance design (like this implementation guide)
-   - Other web3 communities also have valuable resources for community governance organizing:
-   - OpenCivics
-   - Others
+    - See SuperBenefit's knowledge garden for specific tools, templates, case studies, playbooks and patterns to support your community governance design (like this implementation guide)
+    - Other web3 communities also have valuable resources for community governance organizing:
+    - OpenCivics
+    - Others
 2. **Peer networks** - finding other organizations who have developed their own community governance structures can offer insights and guidance. SuperBenefit's network can provide connection to many such organizations
 
 ### Technical Support Options
@@ -515,3 +517,15 @@ The partnership model of multi-stakeholder governance offers a powerful framewor
 Remember that governance is a journey rather than a destination. Start with clear purpose alignment and basic mechanisms, then evolve your approach based on real experience and feedback. The most effective governance emerges from thoughtful design followed by continuous learning and adaptation.
 
 The separation between stakeholder guidance and operational execution is central to reimagining power within your organization. When implemented effectively, this model allows each group to contribute their unique value while respecting the autonomy and context of others.
+
+
+
+
+
+
+
+
+
+
+
+
