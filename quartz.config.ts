@@ -56,6 +56,7 @@ const config: QuartzConfig = {
   plugins: {
     transformers: [
       Plugin.FrontMatter(),
+      Plugin.TypeDetection(),
       Plugin.CreatedModifiedDate({
         priority: ["frontmatter", "filesystem"],
       }),
@@ -80,7 +81,14 @@ const config: QuartzConfig = {
     emitters: [
       Plugin.AliasRedirects(),
       Plugin.ComponentResources(),
+      
+      // Default content emitter (runs first, provides fallback for 'note' category)
       Plugin.ContentPage(),
+      
+      // Category-level emitters (hybrid approach - run after, override for categories)
+      Plugin.ReferencePage(),
+      Plugin.ArtifactPage(),
+      
       Plugin.FolderPage(),
       Plugin.TagPage(),
       Plugin.ContentIndex({
