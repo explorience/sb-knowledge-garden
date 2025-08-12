@@ -5,9 +5,10 @@ import { ProcessedContent } from "../vfile"
 import { FullPageLayout } from "../../cfg"
 import { FilePath, pathToRoot } from "../../util/path"
 import { sharedPageComponents, defaultContentPageLayout } from "../../../quartz.layout"
-import { TypeAwareReferenceContent } from "../../components"
+import { Content } from "../../components"
 import { write } from "./helpers"
 import DepGraph from "../../depgraph"
+import { getLayoutForType } from "../../../typeLayouts"
 
 /**
  * Reference Page Emitter
@@ -15,29 +16,31 @@ import DepGraph from "../../depgraph"
  * Processes files in the 'reference' category (link, reference types).
  * Gracefully skips 'tag' and 'index' types which are handled by 
  * purpose-built TagPage and FolderPage emitters respectively.
+ * Uses type-specific layouts from typeLayouts.ts for each content type.
  */
 export const ReferencePage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userOpts) => {
-  const opts: FullPageLayout = {
+  // Default layout fallback
+  const defaultOpts: FullPageLayout = {
     ...sharedPageComponents,
     ...defaultContentPageLayout,
-    pageBody: TypeAwareReferenceContent(),
+    pageBody: Content(),
     ...userOpts,
   }
-
-  const { head: Head, header, beforeBody, pageBody, afterBody, left, right, footer: Footer } = opts
 
   return {
     name: "ReferencePage",
     getQuartzComponents() {
+      // Return all possible components that might be used across all layouts
+      // The actual components used will be determined per-file in emit()
       return [
-        Head,
-        ...header,
-        ...beforeBody,
-        pageBody,
-        ...afterBody,
-        ...left,
-        ...right,
-        Footer,
+        defaultOpts.head,
+        ...defaultOpts.header,
+        ...defaultOpts.beforeBody,
+        defaultOpts.pageBody,
+        ...defaultOpts.afterBody,
+        ...defaultOpts.left,
+        ...defaultOpts.right,
+        defaultOpts.footer,
       ]
     },
     async getDependencyGraph(ctx, content, _resources) {
@@ -62,6 +65,16 @@ export const ReferencePage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (user
         }
 
         const slug = file.data.slug!
+        
+        // Get type-specific layout or fall back to default
+        const typeLayout = getLayoutForType(detectedType)
+        const layoutOpts: FullPageLayout = typeLayout ? {
+          ...sharedPageComponents,
+          ...typeLayout,
+          pageBody: Content(),
+          ...userOpts,
+        } : defaultOpts
+
         const externalResources = pageResources(pathToRoot(slug), resources)
         const componentData: QuartzComponentProps = {
           ctx,
@@ -73,7 +86,7 @@ export const ReferencePage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (user
           allFiles,
         }
 
-        const content = renderPage(cfg, slug, componentData, opts, externalResources)
+        const content = renderPage(cfg, slug, componentData, layoutOpts, externalResources)
         const fp = await write({
           ctx,
           content,

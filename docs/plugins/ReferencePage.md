@@ -4,7 +4,7 @@ tags:
   - plugin/emitter
 ---
 
-This plugin generates individual pages for content in the 'reference' category using type-aware layouts and components. It works as part of the [[type-aware layouts]] system.
+This plugin generates individual pages for content in the 'reference' category using type-specific layouts. It works as part of the [[type-aware layouts]] system while gracefully coexisting with existing TagPage and FolderPage emitters.
 
 > [!note]
 > For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
@@ -13,7 +13,7 @@ This plugin generates individual pages for content in the 'reference' category u
 
 - **Processes**: Files with `typeCategory === 'reference'`
 - **Skips**: `tag` and `index` types (handled by [[TagPage]] and [[FolderPage]])
-- **Uses**: `TypeAwareReferenceContent` component for type-specific rendering
+- **Uses**: `getLayoutForType()` to select appropriate page layouts per file type
 
 ## Supported Types
 
@@ -22,48 +22,71 @@ This plugin generates individual pages for content in the 'reference' category u
 - **index** - ❌ Skipped (handled by FolderPage)
 - **tag** - ❌ Skipped (handled by TagPage)
 
-## Type-Aware Rendering  
+## Layout Selection
 
-Each reference type gets specialized markup:
+Similar to ArtifactPage, dynamically selects layouts:
 
-```tsx
-// Example: Link type
-<article class="type-link category-reference">
-  <div class="reference-header link-header">
-    <span class="reference-type-badge">External Resource</span>
-  </div>
-  {content}
-</article>
+```typescript
+// Skip types handled by other emitters
+if (detectedType === "tag" || detectedType === "index") {
+  continue // TagPage and FolderPage emitters handle these
+}
+
+// Get type-specific layout or fall back
+const typeLayout = getLayoutForType(detectedType)
+const layoutOpts = typeLayout ? {
+  ...sharedPageComponents,
+  ...typeLayout,
+  pageBody: Content(),
+  ...userOpts,
+} : defaultOpts
 ```
+
+## Page Structure Control
+
+Reference types can have customized page layouts:
+
+- **beforeBody**: TypeBadge component for reference types
+- **left**: Custom Explorer showing only reference content
+- **right**: Extended graph depth for relationship visualization
+- **pageBody**: Standard Content component
+
+## Graceful Coexistence
+
+The emitter carefully avoids conflicts with existing Quartz features:
+
+- **TagPage**: Processes tag files and generates tag listing pages (unchanged)
+- **FolderPage**: Processes index files and generates folder listings (unchanged)
+- **ReferencePage**: Only processes link/reference types, skips tag/index entirely
 
 ## Configuration
 
 ```typescript
 // quartz.config.ts  
 emitters: [
-  Plugin.ContentPage(),    // Fallback
-  Plugin.ReferencePage(), // Reference category
-  Plugin.TagPage(),       // Handles tag types  
-  Plugin.FolderPage(),    // Handles index types
+  Plugin.ContentPage(),    // Fallback for note types
+  Plugin.ReferencePage(), // Reference category processing
+  Plugin.ArtifactPage(),  // Artifact category processing
+  Plugin.TagPage(),       // Handles tag types (unchanged)
+  Plugin.FolderPage(),    // Handles index types (unchanged)  
   // ...
 ]
 ```
 
-## Emitter Order
+## Processing Order
 
-Must come **after** ContentPage (fallback) and **before** TagPage/FolderPage to maintain proper processing order.
+The emitter integrates seamlessly into Quartz's processing pipeline without requiring specific ordering constraints.
 
 ## API
 
 - Category: Emitter
 - Function name: `Plugin.ReferencePage()`.  
 - Source: [`quartz/plugins/emitters/referencePage.tsx`](https://github.com/jackyzha0/quartz/blob/v4/quartz/plugins/emitters/referencePage.tsx).
-- Component: [`quartz/components/TypeAwareReferenceContent.tsx`](https://github.com/jackyzha0/quartz/blob/v4/quartz/components/TypeAwareReferenceContent.tsx).
 
 ## Related
 
 - [[type-aware layouts]] - The complete type-aware system
 - [[TypeDetection]] - Transformer that detects content types
 - [[ArtifactPage]] - Emitter for artifact category types
-- [[TagPage]] - Handles tag type files  
-- [[FolderPage]] - Handles index type files
+- [[TagPage]] - Handles tag type files (unchanged)
+- [[FolderPage]] - Handles index type files (unchanged)

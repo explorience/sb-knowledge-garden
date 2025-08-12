@@ -24,8 +24,8 @@ import { getTypeCategory } from "./quartz/types/typeRegistry"
 
 /**
  * Base layout for all notes
- * This is the default layout that other types can inherit from
- * Includes standard components: breadcrumbs, title, metadata, tags, explorer, graph, TOC, backlinks
+ * This matches Quartz's defaultContentPageLayout exactly - no type-aware components
+ * Files with 'note' type or no type should bypass our system entirely
  */
 export const noteLayout: PageLayout = {
   beforeBody: [
@@ -57,6 +57,7 @@ export const noteLayout: PageLayout = {
 export const referenceLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
+    Component.TypeBadge(),
     Component.ArticleTitle(),
     Component.ContentMeta(),
   ],
@@ -89,6 +90,7 @@ export const referenceLayout: PageLayout = {
 export const artifactLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
+    Component.TypeBadge(),
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
@@ -99,7 +101,7 @@ export const artifactLayout: PageLayout = {
       title: "Artifacts",
       filterFn: (node) => {
         const path = node.file?.slug || ''
-        return path.startsWith('content/artifacts/')
+        return path.startsWith('artifacts/')
       }
     })),
   ],
@@ -122,6 +124,7 @@ export const artifactLayout: PageLayout = {
 export const patternLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
+    Component.TypeBadge(),
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
@@ -156,6 +159,7 @@ export const patternLayout: PageLayout = {
 export const playbookLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
+    Component.TypeBadge(),
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
@@ -190,6 +194,7 @@ export const playbookLayout: PageLayout = {
 export const studyLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
+    Component.TypeBadge(),
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
@@ -223,6 +228,7 @@ export const studyLayout: PageLayout = {
 export const linkLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
+    Component.TypeBadge(),
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
@@ -256,6 +262,7 @@ export const linkLayout: PageLayout = {
 export const tagLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
+    Component.TypeBadge(),
     Component.ArticleTitle(),
     Component.ContentMeta(),
   ],

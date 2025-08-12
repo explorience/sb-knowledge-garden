@@ -25,8 +25,7 @@ import CitationGenerator from "./CitationGenerator"
 import LicenseInfo from "./LicenseInfo"
 import Header from "./Header"
 // TypeAware components
-import TypeAwareReferenceContent from "./TypeAwareReferenceContent"
-import TypeAwareArtifactContent from "./TypeAwareArtifactContent"
+import TypeBadge from "./TypeBadge"
 
 export {
   ArticleTitle,
@@ -56,6 +55,5 @@ export {
   LicenseInfo,
   Header,
   // TypeAware components
-  TypeAwareReferenceContent,
-  TypeAwareArtifactContent,
+  TypeBadge,
 }

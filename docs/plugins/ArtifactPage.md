@@ -4,7 +4,7 @@ tags:
   - plugin/emitter
 ---
 
-This plugin generates individual pages for content in the 'artifact' category using type-aware layouts and components. It works as part of the [[type-aware layouts]] system.
+This plugin generates individual pages for content in the 'artifact' category using type-specific layouts. It works as part of the [[type-aware layouts]] system to provide different page structures based on content type.
 
 > [!note]
 > For information on how to add, remove or configure plugins, see the [[configuration#Plugins|Configuration]] page.
@@ -12,8 +12,8 @@ This plugin generates individual pages for content in the 'artifact' category us
 ## Behavior
 
 - **Processes**: Files with `typeCategory === 'artifact'`
-- **Uses**: `TypeAwareArtifactContent` component for type-specific rendering
-- **Handles**: All artifact types without exceptions
+- **Uses**: `getLayoutForType()` to select appropriate page layouts per file type
+- **Handles**: All artifact types with graceful fallback to category defaults
 
 ## Supported Types
 
@@ -24,59 +24,67 @@ This plugin generates individual pages for content in the 'artifact' category us
 - **guide** - Comprehensive references
 - **protocol** - Systematic procedures
 
-## Type-Aware Rendering
+## Layout Selection
 
-Each artifact type gets specialized markup with icons and descriptions:
+The emitter dynamically selects layouts based on detected type:
 
-```tsx
-// Example: Pattern type  
-<article class="type-pattern category-artifact inherits-note inherits-artifact">
-  <div class="artifact-header pattern-header">
-    <span class="artifact-type-badge pattern-badge">⚡ Pattern</span>
-    <span class="artifact-description">Reusable organizational solution</span>
-  </div>
-  {content}
-</article>
+```typescript
+// Gets type-specific layout (e.g., patternLayout) 
+// or falls back to artifactLayout for unknown types
+const typeLayout = getLayoutForType(detectedType)
+const layoutOpts = typeLayout ? {
+  ...sharedPageComponents,
+  ...typeLayout,
+  pageBody: Content(),
+  ...userOpts,
+} : defaultOpts
 ```
 
-## Type Icons & Descriptions
+## Page Structure Control
 
-| Type | Icon | Description |
-|------|------|-------------|
-| pattern | ⚡ | Reusable organizational solution |
-| playbook | 📖 | Step-by-step implementation guide |
-| study | 🔍 | Real-world analysis and insights |
-| article | 📄 | In-depth exploration |
-| guide | 🗺️ | Comprehensive reference |
-| protocol | ⚙️ | Systematic procedure |
+Each type can have completely different page structures:
+
+- **beforeBody**: Different components above content (TypeBadge, etc.)
+- **left**: Custom Explorer configurations, different filters per type
+- **right**: Different combinations of Graph, TOC, Backlinks
+- **pageBody**: Standard Content component (same for all types)
+
+Example: Pattern pages show only pattern files in Explorer, while Study pages show all studies.
 
 ## Configuration
 
 ```typescript
 // quartz.config.ts
 emitters: [
-  Plugin.ContentPage(),   // Fallback
-  Plugin.ArtifactPage(),  // Artifact category
+  Plugin.ContentPage(),   // Fallback for note types
+  Plugin.ArtifactPage(),  // Artifact category processing
+  Plugin.ReferencePage(), // Reference category processing
   // ...
 ]
 ```
 
-## CSS Classes
+## Type Icons & Styling
 
-Each page gets comprehensive CSS classes for styling:
-- `type-{typeName}` - Specific type (e.g., `type-pattern`)
-- `category-artifact` - Category classification
-- `inherits-{parent}` - Each parent in inheritance chain
+Type badges are displayed via the TypeBadge component:
+
+| Type | Badge | Notes |
+|------|-------|-------|
+| pattern | ⚡ Pattern | Shows in beforeBody section |
+| playbook | 📖 Playbook | Customizable per layout |
+| study | 🔍 Case Study | Returns null for note types |
+| article | 📄 Article | Only shows for artifact/reference types |
+| guide | 🗺️ Guide | - |
+| protocol | ⚙️ Protocol | - |
 
 ## API
 
 - Category: Emitter
 - Function name: `Plugin.ArtifactPage()`.
 - Source: [`quartz/plugins/emitters/artifactPage.tsx`](https://github.com/jackyzha0/quartz/blob/v4/quartz/plugins/emitters/artifactPage.tsx).
-- Component: [`quartz/components/TypeAwareArtifactContent.tsx`](https://github.com/jackyzha0/quartz/blob/v4/quartz/components/TypeAwareArtifactContent.tsx).
 
 ## Related
 
 - [[type-aware layouts]] - The complete type-aware system
 - [[TypeDetection]] - Transformer that detects content types  
 - [[ReferencePage]] - Emitter for reference category types
+- [`typeLayouts.ts`] - Layout definitions for each type
