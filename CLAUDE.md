@@ -58,11 +58,52 @@ When creating components:
 - Check console output for type detection and emitter processing logs
 - Verify that type detection is working by checking console logs for `[TypeDetection]` messages
 
-### 7. Documentation
+### 7. Process Management
+**CRITICAL**: Always clean up running processes when finished with them.
+
+- **Before starting new dev servers**: Check for existing Node.js processes on the same port
+- **After running dev servers**: Always terminate them properly (Ctrl+C or kill the process)
+- **Check for stale processes**: Use `tasklist | findstr node` (Windows) or `ps aux | grep node` (Unix) to find running Node processes
+- **Kill stale processes**: 
+  - Windows: `taskkill /F /PID [process_id]` or `taskkill /F /IM node.exe` (kills all Node processes)
+  - Unix: `kill -9 [process_id]` or `pkill node` (kills all Node processes)
+- **When running build --serve**: Remember this starts a persistent server that must be stopped
+- **Best practice**: Use background execution with proper cleanup, or always verify process termination
+
+### 8. Documentation
 - Main feature documentation goes in `docs/features/`
 - Plugin documentation goes in `docs/plugins/`
 - Always update documentation when adding new features
 - Include file indexes and clear examples
+
+### 9. Context Research Process
+**CRITICAL**: When starting work on this project, always execute the context research process first.
+
+Execute this command to trigger the research process:
+> "Execute the context research process to understand this project's customizations and architecture"
+
+**Research Process Steps:**
+1. **Project Overview**: Read CLAUDE.md, README.md, package.json, quartz.config.ts, quartz.layout.ts
+2. **Git History Analysis**: Check recent commits (last 20), current branch status, and development patterns
+3. **Type System Deep Dive**: Examine quartz/types/ directory, content/tools/types/, type hierarchy and inheritance
+4. **Custom Components**: List all custom components in quartz/components/, identify type-aware vs standard components
+5. **Plugin Architecture**: Check custom transformers and emitters in quartz/plugins/, understand execution order
+6. **Documentation Review**: Scan docs/ directory for feature documentation and architectural decisions
+7. **Architecture Mapping**: Map data flow from content → transformers → emitters → output, identify integration points
+
+**Key Areas to Understand:**
+- **Type-Aware Layout System**: The core innovation extending Quartz with dynamic layouts based on content type detection
+- **Three-Tier Architecture**: note → artifact/reference → specific types (pattern, playbook, etc.)
+- **Component Ecosystem**: TypeBadge, BannerImage, CitationGenerator, TypeAware* components
+- **Plugin Integration**: TypeDetection transformer, ArtifactPage/ReferencePage emitters
+- **Content Organization**: Dynamic type loading from content/tools/types/*.md files
+- **Recent Development**: Current feature branch work, uncommitted changes, development focus
+
+**Validation Steps:**
+- Spot-check key findings against actual files (typeLayouts.ts, TypeBadge.tsx, artifactPage.tsx)
+- Verify git history matches documented recent work
+- Confirm type definitions exist in content/tools/types/
+- Test understanding of component relationships and data flow
 
 ## Common Patterns
 
