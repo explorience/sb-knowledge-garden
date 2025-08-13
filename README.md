@@ -55,6 +55,17 @@ Enhanced header with SuperBenefit-specific navigation:
 - **Responsive Design**: Mobile-friendly navigation
 - **Configurable**: Easy to modify links and structure
 
+### 🖼️ Banner Images
+**Files:** `quartz/components/BannerImage.tsx`  
+**Purpose:** Obsidian-compatible banner/hero images
+
+Seamless integration with Obsidian's banner system:
+- **Obsidian Wiki-link Support**: Parses `banner: "![[attachments/image.webp]]"` format
+- **Multiple Formats**: Supports wiki-links, direct paths, and external URLs
+- **Graceful Fallback**: Conditionally renders only when images are specified
+- **Legacy Support**: Falls back to `image` property for backward compatibility
+- **Responsive Design**: Optimized display for desktop and mobile devices
+
 ### 🎨 Visual Customization
 **Files:** `quartz.config.ts`  
 **Configuration Changes:**
