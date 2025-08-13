@@ -23,10 +23,17 @@ export const ArtifactPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userO
     ...sharedPageComponents,
     beforeBody: [
       Component.Breadcrumbs(),
-      Component.CoverImage(),
+      Component.ConditionalRender({
+        component: Component.BannerImage(),
+        condition: (props) => {
+          const banner = props.fileData.frontmatter?.banner
+          const image = props.fileData.frontmatter?.image
+          return !!(banner || image)
+        }
+      }),
       Component.TitleWithTypeBadge(),
-      Component.ContentMeta(),
       Component.Description(),
+      Component.ContentMeta(),
       Component.TagList(),
     ],
     left: [
