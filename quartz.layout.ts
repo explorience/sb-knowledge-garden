@@ -8,12 +8,7 @@ export const sharedPageComponents: SharedLayout = {
     Component.Darkmode(),
     Component.Search(),
   ],
-  afterBody: [
-    Component.LicenseInfo(),
-    Component.CitationGenerator({
-      defaultStyle: 'apa'
-    })
-  ],
+  afterBody: [],
   footer: Component.Footer({
     links: {
       "Twitter": "https://twitter.com/superbenefitdao",

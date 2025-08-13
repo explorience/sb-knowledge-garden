@@ -24,7 +24,7 @@ import { getTypeCategory } from "./quartz/types/typeRegistry"
 
 /**
  * Base layout for all notes
- * This matches Quartz's defaultContentPageLayout exactly - no type-aware components
+ * This matches Quartz's defaultContentPageLayout exactly
  * Files with 'note' type or no type should bypass our system entirely
  */
 export const noteLayout: PageLayout = {
@@ -49,10 +49,7 @@ export const noteLayout: PageLayout = {
 
 /**
  * Layout for reference types (link, tag, index)
- * Simplified layout for reference materials
- * - No tag list in header (references are organizational)
- * - Custom explorer showing only reference types
- * - Extended graph depth for relationship visualization
+ * Uses default Quartz layout with TypeBadge added
  */
 export const referenceLayout: PageLayout = {
   beforeBody: [
@@ -60,32 +57,24 @@ export const referenceLayout: PageLayout = {
     Component.TypeBadge(),
     Component.ArticleTitle(),
     Component.ContentMeta(),
+    Component.TagList(),
   ],
   left: [
     Component.MobileOnly(Component.Spacer()),
     Component.DesktopOnly(Component.Explorer({
-      title: "References",
-      filterFn: (node) => {
-        // Show only reference types in explorer
-        const type = node.file?.frontmatter?.type
-        return type ? ['link', 'tag', 'index'].includes(type) : false
-      }
+      title: "Knowledge Garden",
     })),
   ],
   right: [
-    Component.Graph({
-      localGraph: {
-        depth: 3,
-        showTags: true,
-      },
-      globalGraph: {}
-    }),
+    Component.Graph(),
+    Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
   ],
 }
 
 /**
  * Layout for artifact types (pattern, playbook, study, article)
+ * Uses default Quartz layout with TypeBadge added
  */
 export const artifactLayout: PageLayout = {
   beforeBody: [
@@ -98,21 +87,11 @@ export const artifactLayout: PageLayout = {
   left: [
     Component.MobileOnly(Component.Spacer()),
     Component.DesktopOnly(Component.Explorer({
-      title: "Artifacts",
-      filterFn: (node) => {
-        const path = node.file?.slug || ''
-        return path.startsWith('artifacts/')
-      }
+      title: "Knowledge Garden",
     })),
   ],
   right: [
-    Component.Graph({
-      localGraph: {
-        depth: 2,
-        showTags: true,
-      },
-      globalGraph: {}
-    }),
+    Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
   ],
@@ -120,6 +99,7 @@ export const artifactLayout: PageLayout = {
 
 /**
  * Specific layout for pattern type
+ * Uses default Quartz layout with TypeBadge added
  */
 export const patternLayout: PageLayout = {
   beforeBody: [
@@ -132,22 +112,11 @@ export const patternLayout: PageLayout = {
   left: [
     Component.MobileOnly(Component.Spacer()),
     Component.DesktopOnly(Component.Explorer({
-      title: "Patterns",
-      filterFn: (node) => {
-        const type = node.file?.frontmatter?.type
-        const path = node.file?.slug || ''
-        return type === 'pattern' || path.includes('patterns/')
-      }
+      title: "Knowledge Garden",
     })),
   ],
   right: [
-    Component.Graph({
-      localGraph: {
-        depth: 2,
-        showTags: false, // Focus on pattern relationships
-      },
-      globalGraph: {}
-    }),
+    Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
   ],
@@ -155,6 +124,7 @@ export const patternLayout: PageLayout = {
 
 /**
  * Specific layout for playbook type
+ * Uses default Quartz layout with TypeBadge added
  */
 export const playbookLayout: PageLayout = {
   beforeBody: [
@@ -167,29 +137,19 @@ export const playbookLayout: PageLayout = {
   left: [
     Component.MobileOnly(Component.Spacer()),
     Component.DesktopOnly(Component.Explorer({
-      title: "Playbooks",
-      filterFn: (node) => {
-        const type = node.file?.frontmatter?.type
-        const path = node.file?.slug || ''
-        return type === 'playbook' || path.includes('playbooks/')
-      }
+      title: "Knowledge Garden",
     })),
   ],
   right: [
-    Component.DesktopOnly(Component.TableOfContents()), // TOC first for long guides
-    Component.Graph({
-      localGraph: {
-        depth: 1,
-        showTags: true,
-      },
-      globalGraph: {}
-    }),
+    Component.Graph(),
+    Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
   ],
 }
 
 /**
  * Specific layout for study type
+ * Uses default Quartz layout with TypeBadge added
  */
 export const studyLayout: PageLayout = {
   beforeBody: [
@@ -202,28 +162,19 @@ export const studyLayout: PageLayout = {
   left: [
     Component.MobileOnly(Component.Spacer()),
     Component.DesktopOnly(Component.Explorer({
-      title: "Case Studies",
-      filterFn: (node) => {
-        const type = node.file?.frontmatter?.type
-        return type === 'study'
-      }
+      title: "Knowledge Garden",
     })),
   ],
   right: [
+    Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
-    Component.Graph({
-      localGraph: {
-        depth: 2,
-        showTags: true,
-      },
-      globalGraph: {}
-    }),
     Component.Backlinks(),
   ],
 }
 
 /**
  * Specific layout for link type
+ * Uses default Quartz layout with TypeBadge added
  */
 export const linkLayout: PageLayout = {
   beforeBody: [
@@ -236,28 +187,19 @@ export const linkLayout: PageLayout = {
   left: [
     Component.MobileOnly(Component.Spacer()),
     Component.DesktopOnly(Component.Explorer({
-      title: "Library",
-      filterFn: (node) => {
-        const type = node.file?.frontmatter?.type
-        const path = node.file?.slug || ''
-        return type === 'link' || path.includes('library/')
-      }
+      title: "Knowledge Garden",
     })),
   ],
   right: [
-    Component.Backlinks(), // Backlinks first for external resources
-    Component.Graph({
-      localGraph: {
-        depth: 2,
-        showTags: true,
-      },
-      globalGraph: {}
-    }),
+    Component.Graph(),
+    Component.DesktopOnly(Component.TableOfContents()),
+    Component.Backlinks(),
   ],
 }
 
 /**
  * Specific layout for tag type
+ * Uses default Quartz layout with TypeBadge added
  */
 export const tagLayout: PageLayout = {
   beforeBody: [
@@ -265,28 +207,17 @@ export const tagLayout: PageLayout = {
     Component.TypeBadge(),
     Component.ArticleTitle(),
     Component.ContentMeta(),
+    Component.TagList(),
   ],
   left: [
     Component.MobileOnly(Component.Spacer()),
     Component.DesktopOnly(Component.Explorer({
-      title: "Lexicon",
-      filterFn: (node) => {
-        const type = node.file?.frontmatter?.type
-        const path = node.file?.slug || ''
-        return type === 'tag' || path.includes('tags/')
-      }
+      title: "Knowledge Garden",
     })),
   ],
   right: [
-    Component.Graph({
-      localGraph: {
-        depth: 3,
-        showTags: true,
-      },
-      globalGraph: {
-        showTags: true,
-      }
-    }),
+    Component.Graph(),
+    Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
   ],
 }
