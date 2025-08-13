@@ -23,7 +23,7 @@ import Comments from "./Comments"
 import ConditionalRender from "./ConditionalRender"
 import Description from "./Description"
 import TitleWithTypeBadge from "./TitleWithTypeBadge"
-import CoverImage from "./CoverImage"
+import BannerImage from "./BannerImage"
 // Custom components
 import CitationGenerator from "./CitationGenerator"
 import LicenseInfo from "./LicenseInfo"
@@ -60,7 +60,7 @@ export {
   ConditionalRender,
   Description,
   TitleWithTypeBadge,
-  CoverImage,
+  BannerImage,
   // Custom components
   CitationGenerator,
   LicenseInfo,
