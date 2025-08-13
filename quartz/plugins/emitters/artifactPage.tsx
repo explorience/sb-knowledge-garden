@@ -53,6 +53,18 @@ export const ArtifactPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userO
         }
       }),
     ],
+    afterBody: [
+      Component.ConditionalRender({
+        component: Component.TypeAwareAfterBody(),
+        condition: (props) => {
+          const type = props.fileData.frontmatter?.type as string | undefined
+          const layout = getLayoutForType(type)
+          // Only show if the type's layout defines afterBody content
+          return layout && layout.afterBody && layout.afterBody.length > 0
+        }
+      }),
+      Component.Graph(),
+    ],
     pageBody: Content(),
     ...userOpts,
   }
