@@ -6,21 +6,39 @@ import { FullPageLayout } from "../../cfg"
 import { FilePath, pathToRoot } from "../../util/path"
 import { sharedPageComponents, defaultContentPageLayout } from "../../../quartz.layout"
 import { Content } from "../../components"
+import * as Component from "../../components"
 import { write } from "./helpers"
 import DepGraph from "../../depgraph"
-import { getLayoutForType } from "../../types/typeLayouts"
 
 /**
  * Artifact Page Emitter
  * 
  * Processes all files in the 'artifact' category (pattern, playbook, study, article, guide, protocol types).
- * Uses type-specific layouts from typeLayouts.ts for each content type.
+ * Uses a unified layout optimized for all artifact types with breadcrumbs + type badge, description, etc.
  */
 export const ArtifactPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userOpts) => {
-  // Default layout fallback
-  const defaultOpts: FullPageLayout = {
+  // Custom layout for all artifacts
+  const artifactLayoutOpts: FullPageLayout = {
     ...sharedPageComponents,
-    ...defaultContentPageLayout,
+    beforeBody: [
+      Component.Breadcrumbs(),
+      Component.CoverImage(),
+      Component.TitleWithTypeBadge(),
+      Component.ContentMeta(),
+      Component.Description(),
+      Component.TagList(),
+    ],
+    left: [
+      Component.MobileOnly(Component.Spacer()),
+      Component.DesktopOnly(Component.Explorer({
+        title: "Knowledge Garden",
+      })),
+    ],
+    right: [
+      Component.Graph(),
+      Component.DesktopOnly(Component.TableOfContents()),
+      Component.Backlinks(),
+    ],
     pageBody: Content(),
     ...userOpts,
   }
@@ -28,17 +46,15 @@ export const ArtifactPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userO
   return {
     name: "ArtifactPage",
     getQuartzComponents() {
-      // Return all possible components that might be used across all layouts
-      // The actual components used will be determined per-file in emit()
       return [
-        defaultOpts.head,
-        ...defaultOpts.header,
-        ...defaultOpts.beforeBody,
-        defaultOpts.pageBody,
-        ...defaultOpts.afterBody,
-        ...defaultOpts.left,
-        ...defaultOpts.right,
-        defaultOpts.footer,
+        artifactLayoutOpts.head,
+        ...artifactLayoutOpts.header,
+        ...artifactLayoutOpts.beforeBody,
+        artifactLayoutOpts.pageBody,
+        ...artifactLayoutOpts.afterBody,
+        ...artifactLayoutOpts.left,
+        ...artifactLayoutOpts.right,
+        artifactLayoutOpts.footer,
       ]
     },
     async getDependencyGraph(ctx, content, _resources) {
@@ -57,16 +73,6 @@ export const ArtifactPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userO
         }
 
         const slug = file.data.slug!
-        const detectedType = file.data.detectedType
-        
-        // Get type-specific layout or fall back to default
-        const typeLayout = getLayoutForType(detectedType)
-        const layoutOpts: FullPageLayout = typeLayout ? {
-          ...sharedPageComponents,
-          ...typeLayout,
-          pageBody: Content(),
-          ...userOpts,
-        } : defaultOpts
 
         const externalResources = pageResources(pathToRoot(slug), resources)
         const componentData: QuartzComponentProps = {
@@ -79,7 +85,7 @@ export const ArtifactPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userO
           allFiles,
         }
 
-        const content = renderPage(cfg, slug, componentData, layoutOpts, externalResources)
+        const content = renderPage(cfg, slug, componentData, artifactLayoutOpts, externalResources)
         const fp = await write({
           ctx,
           content,

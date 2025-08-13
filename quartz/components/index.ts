@@ -20,6 +20,9 @@ import MobileOnly from "./MobileOnly"
 import RecentNotes from "./RecentNotes"
 import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
+import Description from "./Description"
+import TitleWithTypeBadge from "./TitleWithTypeBadge"
+import CoverImage from "./CoverImage"
 // Custom components
 import CitationGenerator from "./CitationGenerator"
 import LicenseInfo from "./LicenseInfo"
@@ -50,6 +53,9 @@ export {
   NotFound,
   Breadcrumbs,
   Comments,
+  Description,
+  TitleWithTypeBadge,
+  CoverImage,
   // Custom components
   CitationGenerator,
   LicenseInfo,

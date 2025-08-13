@@ -2,6 +2,8 @@
 title: Reimagining Power - How Web3 Can Transform Impact
 tags: impact
 description: ""
+image: https://i.postimg.cc/7Z27PwJj/8c5f751d5b1a745dcfeafe40904dcab0.webp
+type: article
 publish: true
 ---
 

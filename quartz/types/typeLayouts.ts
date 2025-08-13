@@ -74,14 +74,15 @@ export const referenceLayout: PageLayout = {
 
 /**
  * Layout for artifact types (pattern, playbook, study, article)
- * Uses default Quartz layout with TypeBadge added
+ * NOTE: This is now handled directly by the ArtifactPage emitter
+ * This is kept for compatibility but not actively used
  */
 export const artifactLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
-    Component.TypeBadge(),
-    Component.ArticleTitle(),
+    Component.TitleWithTypeBadge(),
     Component.ContentMeta(),
+    Component.Description(),
     Component.TagList(),
   ],
   left: [
