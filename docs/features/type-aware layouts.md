@@ -13,6 +13,39 @@ The Type-Aware Layout system extends Quartz's core emitter pattern to automatica
 
 The system operates through a three-stage pipeline:
 
+```mermaid
+graph TD
+    Start([Content File]) --> Detection[Type Detection<br/>Transformer]
+    
+    Detection --> |Analyzes| FM[Frontmatter<br/>type/fileClass]
+    Detection --> |Checks| Path[Directory Path<br/>Patterns]
+    Detection --> |Loads| Types[Type Definitions<br/>content/tools/types/]
+    
+    FM --> Assign[Assign Type & Category]
+    Path --> Assign
+    Types --> Assign
+    
+    Assign --> Router{Category<br/>Router}
+    
+    Router --> |artifact| ArtifactEmitter[ArtifactPage<br/>Emitter]
+    Router --> |reference| ReferenceEmitter[ReferencePage<br/>Emitter]
+    Router --> |note/undefined| DefaultEmitter[ContentPage<br/>Emitter]
+    
+    ArtifactEmitter --> Layout1[getLayoutForType<br/>artifactLayout]
+    ReferenceEmitter --> Layout2[getLayoutForType<br/>referenceLayout]
+    DefaultEmitter --> Layout3[Default Quartz<br/>Layout]
+    
+    Layout1 --> Render[Render Page<br/>with Components]
+    Layout2 --> Render
+    Layout3 --> Render
+    
+    Render --> Output([HTML Output])
+    
+    style Detection fill:#e1f5e1
+    style Router fill:#ffe1e1
+    style Render fill:#e1e1ff
+```
+
 ### Stage 1: Type Detection
 During the transformation phase, each content file is analyzed to determine its content type and category classification using frontmatter, directory paths, and type definitions.
 
@@ -50,20 +83,36 @@ Each emitter uses `getLayoutForType()` to select appropriate page layouts that c
 
 ## Type Hierarchy
 
+```mermaid
+graph TD
+    Note[note<br/>📝 Base Type] --> Reference[reference<br/>📚 Organizational]
+    Note --> Artifact[artifact<br/>📦 Validated]
+    Note --> Protocol[protocol<br/>⚙️ Procedures]
+    
+    Reference --> Link[link<br/>🔗 External]
+    Reference --> Tag[tag<br/>🏷️ Lexicon]
+    Reference --> Index[index<br/>📂 Directory]
+    
+    Artifact --> Pattern[pattern<br/>⚡ Solutions]
+    Artifact --> Playbook[playbook<br/>📖 Implementation]
+    Artifact --> Study[study<br/>🔍 Analysis]
+    Artifact --> Article[article<br/>📄 Explorations]
+    Artifact --> Guide[guide<br/>🗺️ References]
+    
+    style Note fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style Reference fill:#e6f3ff,stroke:#0066cc
+    style Artifact fill:#fff0e6,stroke:#cc6600
+    style Protocol fill:#f0f0f0,stroke:#666
+    
+    style Tag stroke-dasharray: 5 5
+    style Index stroke-dasharray: 5 5
 ```
-note (bypasses system - uses default Quartz behavior)
-├── reference (organizational content)
-│   ├── link (external resources) 
-│   ├── tag (lexicon entries) - handled by TagPage emitter
-│   └── index (directory pages) - handled by FolderPage emitter
-└── artifact (validated knowledge)
-    ├── pattern (reusable solutions)
-    ├── playbook (implementation guides)
-    ├── study (case studies and analysis)
-    ├── article (in-depth explorations)
-    ├── guide (comprehensive references)
-    └── protocol (systematic procedures)
-```
+
+**Special handling:**
+- `note` types bypass the system entirely (use default Quartz behavior)
+- `tag` types are handled by the existing TagPage emitter
+- `index` types are handled by the existing FolderPage emitter
+- All other types use their category-specific emitters
 
 ## Layout Customization
 
@@ -99,6 +148,21 @@ export const patternLayout: PageLayout = {
 ```
 
 ### Graceful Fallback
+
+```mermaid
+graph LR
+    Input[Type: playbook] --> Check1{playbook<br/>Layout?}
+    Check1 -->|Yes| Use1[Use playbookLayout]
+    Check1 -->|No| Check2{artifact<br/>Layout?}
+    Check2 -->|Yes| Use2[Use artifactLayout]
+    Check2 -->|No| Check3[Use noteLayout<br/>Default]
+    
+    style Input fill:#e1f5e1
+    style Use1 fill:#90ee90
+    style Use2 fill:#ffeb9c
+    style Check3 fill:#f0f0f0
+```
+
 The system provides intelligent fallback:
 
 1. **Specific type layout exists** → Use it (e.g., `patternLayout`)
