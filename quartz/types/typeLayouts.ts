@@ -18,9 +18,9 @@
  * Author: Claude (Anthropic)
  */
 
-import { PageLayout } from "./quartz/cfg"
-import * as Component from "./quartz/components"
-import { getTypeCategory } from "./quartz/types/typeRegistry"
+import { PageLayout } from "../cfg"
+import * as Component from "../components"
+import { getTypeCategory } from "./typeRegistry"
 
 /**
  * Base layout for all notes

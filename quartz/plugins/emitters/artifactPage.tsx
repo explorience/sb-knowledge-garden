@@ -8,7 +8,7 @@ import { sharedPageComponents, defaultContentPageLayout } from "../../../quartz.
 import { Content } from "../../components"
 import { write } from "./helpers"
 import DepGraph from "../../depgraph"
-import { getLayoutForType } from "../../../typeLayouts"
+import { getLayoutForType } from "../../types/typeLayouts"
 
 /**
  * Artifact Page Emitter

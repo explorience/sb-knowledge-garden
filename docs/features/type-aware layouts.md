@@ -31,7 +31,7 @@ Each emitter uses `getLayoutForType()` to select appropriate page layouts that c
 - **`content/tools/types/*.md`** - Dynamic type definition files
 
 ### Layout System
-- **`typeLayouts.ts`** - Defines page layouts for each content type, specifying which components appear in each section (beforeBody, left, right, etc.)
+- **`quartz/types/typeLayouts.ts`** - Defines page layouts for each content type, specifying which components appear in each section (beforeBody, left, right, etc.)
 - **`quartz/components/TypeBadge.tsx`** - Simple component that displays type badges in beforeBody section
 
 ### Custom Emitters
@@ -173,3 +173,52 @@ The system will automatically detect and process the new type using the appropri
 - **Opportunistic enhancement**: Add layouts only where needed
 
 This system provides complete control over page structure per content type while maintaining full Quartz compatibility and following established patterns.
+
+## File Index
+
+### Core System Files
+| File | Location | Purpose |
+|------|----------|---------|
+| `typeRegistry.ts` | `quartz/types/` | Central type management, classification, and inheritance |
+| `typeLoader.ts` | `quartz/types/` | Dynamic type definition loader from content files |
+| `typeLayouts.ts` | `quartz/types/` | Page layout definitions for each content type |
+| `typeDetection.ts` | `quartz/plugins/transformers/` | Transformer plugin that detects and assigns types |
+| `artifactPage.tsx` | `quartz/plugins/emitters/` | Emitter for artifact category pages |
+| `referencePage.tsx` | `quartz/plugins/emitters/` | Emitter for reference category pages |
+| `TypeBadge.tsx` | `quartz/components/` | Component displaying type badges |
+
+### Configuration Files
+| File | Location | Purpose |
+|------|----------|---------|
+| `quartz.config.ts` | Project root | Main configuration including plugin order |
+| `quartz.layout.ts` | Project root | Default Quartz layouts (unchanged) |
+
+### Type Definition Files
+| File | Location | Purpose |
+|------|----------|---------|
+| `note.md` | `content/tools/types/` | Base type definition |
+| `artifact.md` | `content/tools/types/` | Artifact category parent type |
+| `reference.md` | `content/tools/types/` | Reference category parent type |
+| `pattern.md` | `content/tools/types/` | Pattern type (extends artifact) |
+| `playbook.md` | `content/tools/types/` | Playbook type (extends artifact) |
+| `study.md` | `content/tools/types/` | Study type (extends artifact) |
+| `article.md` | `content/tools/types/` | Article type (extends artifact) |
+| `guide.md` | `content/tools/types/` | Guide type (extends artifact) |
+| `protocol.md` | `content/tools/types/` | Protocol type (extends note) |
+| `link.md` | `content/tools/types/` | Link type (extends reference) |
+| `tag.md` | `content/tools/types/` | Tag type (extends reference) |
+| `index.md` | `content/tools/types/` | Index type (extends reference) |
+
+### Documentation Files
+| File | Location | Purpose |
+|------|----------|---------|
+| `type-aware layouts.md` | `docs/features/` | Main feature documentation (this file) |
+| `TypeDetection.md` | `docs/plugins/` | TypeDetection transformer documentation |
+| `ArtifactPage.md` | `docs/plugins/` | ArtifactPage emitter documentation |
+| `ReferencePage.md` | `docs/plugins/` | ReferencePage emitter documentation |
+
+### Modified Quartz Files
+The following existing Quartz files were modified to integrate the type-aware system:
+- `quartz/components/index.ts` - Added TypeBadge export
+- `quartz/plugins/emitters/index.ts` - Added ArtifactPage and ReferencePage exports
+- `quartz/plugins/transformers/index.ts` - Added TypeDetection export
