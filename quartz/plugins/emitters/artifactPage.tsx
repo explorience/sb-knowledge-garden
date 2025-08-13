@@ -9,6 +9,7 @@ import { Content } from "../../components"
 import * as Component from "../../components"
 import { write } from "./helpers"
 import DepGraph from "../../depgraph"
+import { getLayoutForType } from "../../types/typeLayouts"
 
 /**
  * Artifact Page Emitter
@@ -30,8 +31,14 @@ export const ArtifactPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userO
     ],
     left: [
       Component.MobileOnly(Component.Spacer()),
-      Component.DesktopOnly(Component.Explorer({
-        title: "Knowledge Garden",
+      Component.DesktopOnly(Component.ConditionalRender({
+        component: Component.TypeAwareLeftContent(),
+        condition: (props) => {
+          const type = props.fileData.frontmatter?.type as string | undefined
+          const layout = getLayoutForType(type)
+          // Only show if the type's layout defines left section content
+          return layout && layout.left && layout.left.length > 0
+        }
       })),
     ],
     right: [

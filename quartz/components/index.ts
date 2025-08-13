@@ -20,6 +20,7 @@ import MobileOnly from "./MobileOnly"
 import RecentNotes from "./RecentNotes"
 import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
+import ConditionalRender from "./ConditionalRender"
 import Description from "./Description"
 import TitleWithTypeBadge from "./TitleWithTypeBadge"
 import CoverImage from "./CoverImage"
@@ -29,6 +30,7 @@ import LicenseInfo from "./LicenseInfo"
 import Header from "./Header"
 // TypeAware components
 import TypeBadge from "./TypeBadge"
+import TypeAwareLeftContent from "./TypeAwareLeftContent"
 
 export {
   ArticleTitle,
@@ -53,6 +55,7 @@ export {
   NotFound,
   Breadcrumbs,
   Comments,
+  ConditionalRender,
   Description,
   TitleWithTypeBadge,
   CoverImage,
@@ -62,4 +65,5 @@ export {
   Header,
   // TypeAware components
   TypeBadge,
+  TypeAwareLeftContent,
 }

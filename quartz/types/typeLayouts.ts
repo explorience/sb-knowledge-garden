@@ -28,23 +28,11 @@ import { getTypeCategory } from "./typeRegistry"
  * Files with 'note' type or no type should bypass our system entirely
  */
 export const noteLayout: PageLayout = {
-  beforeBody: [
-    Component.Breadcrumbs(),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
-  ],
+  beforeBody: [],
   left: [
     Component.MobileOnly(Component.Spacer()),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Knowledge Garden",
-    })),
   ],
-  right: [
-    Component.Graph(),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
+  right: [],
 }
 
 /**
@@ -52,24 +40,11 @@ export const noteLayout: PageLayout = {
  * Uses default Quartz layout with TypeBadge added
  */
 export const referenceLayout: PageLayout = {
-  beforeBody: [
-    Component.Breadcrumbs(),
-    Component.TypeBadge(),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
-  ],
+  beforeBody: [],
   left: [
     Component.MobileOnly(Component.Spacer()),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Knowledge Garden",
-    })),
   ],
-  right: [
-    Component.Graph(),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
+  right: [],
 }
 
 /**
@@ -78,24 +53,11 @@ export const referenceLayout: PageLayout = {
  * This is kept for compatibility but not actively used
  */
 export const artifactLayout: PageLayout = {
-  beforeBody: [
-    Component.Breadcrumbs(),
-    Component.TitleWithTypeBadge(),
-    Component.ContentMeta(),
-    Component.Description(),
-    Component.TagList(),
-  ],
+  beforeBody: [],
   left: [
     Component.MobileOnly(Component.Spacer()),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Knowledge Garden",
-    })),
   ],
-  right: [
-    Component.Graph(),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
+  right: [],
 }
 
 /**
@@ -103,24 +65,11 @@ export const artifactLayout: PageLayout = {
  * Uses default Quartz layout with TypeBadge added
  */
 export const patternLayout: PageLayout = {
-  beforeBody: [
-    Component.Breadcrumbs(),
-    Component.TypeBadge(),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
-  ],
+  beforeBody: [],
   left: [
     Component.MobileOnly(Component.Spacer()),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Knowledge Garden",
-    })),
   ],
-  right: [
-    Component.Graph(),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
+  right: [],
 }
 
 /**
@@ -128,24 +77,11 @@ export const patternLayout: PageLayout = {
  * Uses default Quartz layout with TypeBadge added
  */
 export const playbookLayout: PageLayout = {
-  beforeBody: [
-    Component.Breadcrumbs(),
-    Component.TypeBadge(),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
-  ],
+  beforeBody: [],
   left: [
     Component.MobileOnly(Component.Spacer()),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Knowledge Garden",
-    })),
   ],
-  right: [
-    Component.Graph(),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
+  right: [],
 }
 
 /**
@@ -153,24 +89,11 @@ export const playbookLayout: PageLayout = {
  * Uses default Quartz layout with TypeBadge added
  */
 export const studyLayout: PageLayout = {
-  beforeBody: [
-    Component.Breadcrumbs(),
-    Component.TypeBadge(),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
-  ],
+  beforeBody: [],
   left: [
     Component.MobileOnly(Component.Spacer()),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Knowledge Garden",
-    })),
   ],
-  right: [
-    Component.Graph(),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
+  right: [],
 }
 
 /**
@@ -178,24 +101,11 @@ export const studyLayout: PageLayout = {
  * Uses default Quartz layout with TypeBadge added
  */
 export const linkLayout: PageLayout = {
-  beforeBody: [
-    Component.Breadcrumbs(),
-    Component.TypeBadge(),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
-  ],
+  beforeBody: [],
   left: [
     Component.MobileOnly(Component.Spacer()),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Knowledge Garden",
-    })),
   ],
-  right: [
-    Component.Graph(),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
+  right: [],
 }
 
 /**
@@ -203,24 +113,11 @@ export const linkLayout: PageLayout = {
  * Uses default Quartz layout with TypeBadge added
  */
 export const tagLayout: PageLayout = {
-  beforeBody: [
-    Component.Breadcrumbs(),
-    Component.TypeBadge(),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
-  ],
+  beforeBody: [],
   left: [
     Component.MobileOnly(Component.Spacer()),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Knowledge Garden",
-    })),
   ],
-  right: [
-    Component.Graph(),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
+  right: [],
 }
 
 /**
