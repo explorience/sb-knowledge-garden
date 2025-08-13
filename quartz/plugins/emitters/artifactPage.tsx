@@ -42,9 +42,16 @@ export const ArtifactPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userO
       })),
     ],
     right: [
-      Component.Graph(),
       Component.DesktopOnly(Component.TableOfContents()),
-      Component.Backlinks(),
+      Component.ConditionalRender({
+        component: Component.TypeAwareRightContent(),
+        condition: (props) => {
+          const type = props.fileData.frontmatter?.type as string | undefined
+          const layout = getLayoutForType(type)
+          // Only show if the type's layout defines right section content
+          return layout && layout.right && layout.right.length > 0
+        }
+      }),
     ],
     pageBody: Content(),
     ...userOpts,

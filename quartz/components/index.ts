@@ -31,6 +31,7 @@ import Header from "./Header"
 // TypeAware components
 import TypeBadge from "./TypeBadge"
 import TypeAwareLeftContent from "./TypeAwareLeftContent"
+import TypeAwareRightContent from "./TypeAwareRightContent"
 
 export {
   ArticleTitle,
@@ -66,4 +67,5 @@ export {
   // TypeAware components
   TypeBadge,
   TypeAwareLeftContent,
+  TypeAwareRightContent,
 }
