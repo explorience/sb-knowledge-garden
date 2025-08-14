@@ -42,12 +42,13 @@ const layoutOpts = typeLayout ? {
 
 ## Page Structure Control
 
-Each type can have completely different page structures:
+Artifact types use a unified layout with conditional type-aware sections:
 
-- **beforeBody**: Different components above content (TypeBadge, etc.)
-- **left**: Custom Explorer configurations, different filters per type
-- **right**: Different combinations of Graph, TOC, Backlinks
-- **pageBody**: Standard Content component (same for all types)
+- **beforeBody**: Breadcrumbs, BannerImage (conditional), TitleWithTypeBadge, Description, ContentMeta, TagList, TypeAwareBeforeBody (conditional)
+- **left**: TypeAwareLeftContent (conditional, desktop only)
+- **right**: TableOfContents (desktop only), TypeAwareRightContent (conditional)
+- **afterBody**: TypeAwareAfterBody (conditional), Graph
+- **pageBody**: Standard Content component
 
 Example: Pattern pages show only pattern files in Explorer, while Study pages show all studies.
 

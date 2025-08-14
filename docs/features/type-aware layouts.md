@@ -66,6 +66,11 @@ Each emitter uses `getLayoutForType()` to select appropriate page layouts that c
 ### Layout System
 - **`quartz/types/typeLayouts.ts`** - Defines page layouts for each content type, specifying which components appear in each section (beforeBody, left, right, etc.)
 - **`quartz/components/TypeBadge.tsx`** - Simple component that displays type badges in beforeBody section
+- **TypeAware Components** - Conditional components that render type-specific content:
+  - **`TypeAwareBeforeBody.tsx`** - Custom beforeBody content per type
+  - **`TypeAwareLeftContent.tsx`** - Custom left sidebar content per type  
+  - **`TypeAwareRightContent.tsx`** - Custom right sidebar content per type
+  - **`TypeAwareAfterBody.tsx`** - Custom afterBody content per type
 
 ### Custom Emitters
 - **`quartz/plugins/emitters/artifactPage.tsx`** - Processes artifact category files using type-specific layouts
@@ -250,6 +255,10 @@ This system provides complete control over page structure per content type while
 | `artifactPage.tsx` | `quartz/plugins/emitters/` | Emitter for artifact category pages |
 | `referencePage.tsx` | `quartz/plugins/emitters/` | Emitter for reference category pages |
 | `TypeBadge.tsx` | `quartz/components/` | Component displaying type badges |
+| `TypeAwareBeforeBody.tsx` | `quartz/components/` | Conditional beforeBody content per type |
+| `TypeAwareLeftContent.tsx` | `quartz/components/` | Conditional left sidebar content per type |
+| `TypeAwareRightContent.tsx` | `quartz/components/` | Conditional right sidebar content per type |
+| `TypeAwareAfterBody.tsx` | `quartz/components/` | Conditional afterBody content per type |
 
 ### Configuration Files
 | File | Location | Purpose |

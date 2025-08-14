@@ -46,7 +46,7 @@ const layoutOpts = typeLayout ? {
 
 Reference types use a unified layout with conditional type-aware sections:
 
-- **beforeBody**: Breadcrumbs, TitleWithTypeBadge, Description
+- **beforeBody**: Breadcrumbs, TitleWithTypeBadge, Description, TypeAwareBeforeBody (conditional)
 - **left**: TypeAwareLeftContent (conditional) + Explorer (desktop only)
 - **right**: TypeAwareRightContent (conditional) + Graph (desktop only)
 - **afterBody**: TypeAwareAfterBody (conditional)
