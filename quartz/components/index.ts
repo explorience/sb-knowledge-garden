@@ -24,6 +24,8 @@ import ConditionalRender from "./ConditionalRender"
 import Description from "./Description"
 import TitleWithTypeBadge from "./TitleWithTypeBadge"
 import BannerImage from "./BannerImage"
+import Flex from "./Flex"
+import Divider from "./Divider"
 // Custom components
 import CitationGenerator from "./CitationGenerator"
 import LicenseInfo from "./LicenseInfo"
@@ -62,6 +64,8 @@ export {
   Description,
   TitleWithTypeBadge,
   BannerImage,
+  Flex,
+  Divider,
   // Custom components
   CitationGenerator,
   LicenseInfo,

@@ -79,6 +79,16 @@ export const ArtifactPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userO
           return layout && layout.afterBody && layout.afterBody.length > 0
         }
       }),
+      Component.Flex({
+        components: [
+          Component.LicenseInfo(),
+          Component.CitationGenerator(),
+        ],
+        direction: "row",
+        gap: "2rem",
+        basis: ["50%", "50%"],
+      }),
+      Component.Divider(),
       Component.Graph(),
     ],
     pageBody: Content(),
