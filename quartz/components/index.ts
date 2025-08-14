@@ -33,6 +33,7 @@ import TypeBadge from "./TypeBadge"
 import TypeAwareLeftContent from "./TypeAwareLeftContent"
 import TypeAwareRightContent from "./TypeAwareRightContent"
 import TypeAwareAfterBody from "./TypeAwareAfterBody"
+import TypeAwareBeforeBody from "./TypeAwareBeforeBody"
 
 export {
   ArticleTitle,
@@ -70,4 +71,5 @@ export {
   TypeAwareLeftContent,
   TypeAwareRightContent,
   TypeAwareAfterBody,
+  TypeAwareBeforeBody,
 }
