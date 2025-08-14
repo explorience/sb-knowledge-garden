@@ -23,8 +23,8 @@ export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
     Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
+    Component.Description(),
+    Component.BannerImage(),
   ],
   left: [
     Component.MobileOnly(Component.Spacer()),
