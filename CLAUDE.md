@@ -58,25 +58,36 @@ When creating components:
 - Check console output for type detection and emitter processing logs
 - Verify that type detection is working by checking console logs for `[TypeDetection]` messages
 
-### 7. Process Management
-**CRITICAL**: Always clean up running processes when finished with them.
+### 7. Git and Commit Policy
+**🚨 CRITICAL RULE**: NEVER commit changes unless EXPLICITLY instructed by the user.
+
+- **DO NOT commit automatically** after completing tasks
+- **ONLY commit when the user explicitly says** "commit", "please commit", or gives direct commit instructions
+- **Always ask for permission** if you think something should be committed
+- **Stage changes with `git add`** but wait for explicit commit instruction
+
+### 8. Process Management
+**CRITICAL**: Always clean up running processes when finished with them, but BE SELECTIVE about which processes to kill.
+
+**⚠️ NEVER USE BLANKET KILL COMMANDS**: Do NOT use `taskkill /F /IM node.exe` or `pkill node` as these will kill ALL Node processes, including Claude's own process if running in a Node environment. This will terminate the Claude session immediately.
 
 - **Before starting new dev servers**: Check for existing Node.js processes on the same port
 - **After running dev servers**: Always terminate them properly (Ctrl+C or kill the process)
 - **Check for stale processes**: Use `tasklist | findstr node` (Windows) or `ps aux | grep node` (Unix) to find running Node processes
-- **Kill stale processes**: 
-  - Windows: `taskkill /F /PID [process_id]` or `taskkill /F /IM node.exe` (kills all Node processes)
-  - Unix: `kill -9 [process_id]` or `pkill node` (kills all Node processes)
+- **Kill stale processes SELECTIVELY**: 
+  - Windows: `taskkill /F /PID [specific_process_id]` (ONLY kill by specific PID, never use /IM node.exe)
+  - Unix: `kill -9 [specific_process_id]` (ONLY kill by specific PID, never use pkill node)
+- **Identify the right process**: Look for processes with "quartz" in the command line or running on port 8080
 - **When running build --serve**: Remember this starts a persistent server that must be stopped
-- **Best practice**: Use background execution with proper cleanup, or always verify process termination
+- **Best practice**: Always kill processes by specific PID after identifying the correct one to avoid accidentally terminating Claude's session
 
-### 8. Documentation
+### 9. Documentation
 - Main feature documentation goes in `docs/features/`
 - Plugin documentation goes in `docs/plugins/`
 - Always update documentation when adding new features
 - Include file indexes and clear examples
 
-### 9. Context Research Process
+### 10. Context Research Process
 **CRITICAL**: When starting work on this project, always execute the context research process first.
 
 Execute this command to trigger the research process:
