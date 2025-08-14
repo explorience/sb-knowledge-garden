@@ -2,6 +2,8 @@
 title: "TypeDetection"
 tags:
   - plugin/transformer
+last_updated: 2024-01-15
+quartz_version: "4.x"
 ---
 
 This plugin detects content types and attaches type metadata to files for use by category emitters. It enables the [[type-aware layouts]] feature by analyzing content frontmatter, file paths, and Obsidian metadata.
@@ -11,11 +13,13 @@ This plugin detects content types and attaches type metadata to files for use by
 
 ## Features
 
-- **Dynamic type loading** from `content/tools/types/*.md` files
+- **Dynamic type loading** from `content/tools/types/*.md` files with single-pass optimization
 - **Multiple detection methods** with priority order
 - **Inheritance chain resolution** for type hierarchies  
 - **Category classification** (reference/artifact/note)
+- **Robust error handling** with graceful fallback to note type
 - **Graceful fallback** to hardcoded types if loading fails
+- **Development logging** for debugging type detection issues
 
 ## Detection Priority
 

@@ -50,35 +50,51 @@ export const TypeDetection: QuartzTransformerPlugin = () => {
       return [
         () => {
           return async (tree, file) => {
-            // Ensure dynamic types are loaded before processing
-            await initializeDynamicTypes()
-            
-            const frontmatter = file.data.frontmatter
-            const slug = file.data.slug
-            
-            const detectedType = detectType(frontmatter, slug || '')
-            
-            if (detectedType) {
-              file.data.detectedType = detectedType
-              file.data.typeInheritanceChain = getInheritanceChain(detectedType)
-              file.data.typeCategory = getTypeCategory(detectedType)
+            try {
+              // Ensure dynamic types are loaded before processing
+              await initializeDynamicTypes()
               
-              const typeClasses = []
-              typeClasses.push(`type-${detectedType}`)
-              typeClasses.push(`category-${file.data.typeCategory}`)
+              const frontmatter = file.data.frontmatter
+              const slug = file.data.slug
               
-              const inheritanceChain = file.data.typeInheritanceChain
-              if (Array.isArray(inheritanceChain)) {
-                inheritanceChain.forEach((ancestor) => {
-                  typeClasses.push(`inherits-${ancestor}`)
-                })
+              const detectedType = detectType(frontmatter, slug || '')
+              
+              if (detectedType) {
+                file.data.detectedType = detectedType
+                file.data.typeInheritanceChain = getInheritanceChain(detectedType)
+                file.data.typeCategory = getTypeCategory(detectedType)
+                
+                const typeClasses = []
+                typeClasses.push(`type-${detectedType}`)
+                typeClasses.push(`category-${file.data.typeCategory}`)
+                
+                const inheritanceChain = file.data.typeInheritanceChain
+                if (Array.isArray(inheritanceChain)) {
+                  inheritanceChain.forEach((ancestor) => {
+                    typeClasses.push(`inherits-${ancestor}`)
+                  })
+                }
+                
+                file.data.typeClasses = typeClasses.join(' ')
+                
+                if (process.env.NODE_ENV === 'development') {
+                  console.log(`[TypeDetection] ${slug}: ${detectedType} (${file.data.typeCategory}) [${hasDynamicTypes() ? 'dynamic' : 'hardcoded'}]`)
+                }
+              } else {
+                // Safe fallback for files with no detected type
+                file.data.detectedType = null
+                file.data.typeCategory = 'note'
+                file.data.typeInheritanceChain = ['note']
+                file.data.typeClasses = 'category-note'
               }
               
-              file.data.typeClasses = typeClasses.join(' ')
-              
-              if (process.env.NODE_ENV === 'development') {
-                console.log(`[TypeDetection] ${slug}: ${detectedType} (${file.data.typeCategory}) [${hasDynamicTypes() ? 'dynamic' : 'hardcoded'}]`)
-              }
+            } catch (error) {
+              console.warn(`[TypeDetection] Error processing file ${file.data.slug}:`, error)
+              // Safe fallback to note type on any error
+              file.data.detectedType = null
+              file.data.typeCategory = 'note'
+              file.data.typeInheritanceChain = ['note']
+              file.data.typeClasses = 'category-note'
             }
             
             return tree

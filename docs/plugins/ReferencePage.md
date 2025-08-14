@@ -2,6 +2,8 @@
 title: "ReferencePage" 
 tags:
   - plugin/emitter
+last_updated: 2024-01-15
+quartz_version: "4.x"
 ---
 
 This plugin generates individual pages for content in the 'reference' category using type-specific layouts. It works as part of the [[type-aware layouts]] system while gracefully coexisting with existing TagPage and FolderPage emitters.

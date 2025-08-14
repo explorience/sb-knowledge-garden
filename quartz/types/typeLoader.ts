@@ -54,10 +54,11 @@ export async function loadTypeDefinitions(contentDir: string = 'content'): Promi
   }
 
   const types: Record<string, TypeDefinition> = {}
-  const rawTypes: Record<string, ObsidianTypeDefinition & { name: string }> = {}
+  const inheritance: Record<string, string[]> = {}
+  const categories: Record<string, string> = {}
   
   try {
-    // First pass: Load all raw type definitions
+    // Single-pass processing: Load, parse, and convert all type definitions
     const files = fs.readdirSync(typesDir).filter(f => f.endsWith('.md'))
     
     for (const file of files) {
@@ -73,9 +74,17 @@ export async function loadTypeDefinitions(contentDir: string = 'content'): Promi
         const content = fs.readFileSync(filePath, 'utf8')
         const { data: frontmatter } = matter(content)
         
-        rawTypes[typeName] = {
+        // Convert raw type directly to TypeDefinition format
+        const rawType = frontmatter as ObsidianTypeDefinition
+        types[typeName] = {
           name: typeName,
-          ...frontmatter as ObsidianTypeDefinition
+          extends: rawType.extends || undefined,
+          filesPaths: rawType.filesPaths || [],
+          icon: rawType.icon || 'file',
+          tagNames: rawType.tagNames || [],
+          mapWithTag: rawType.mapWithTag || false,
+          limit: rawType.limit || 20,
+          fields: rawType.fields || []
         }
         
         console.log(`[TypeLoader] Loaded type definition: ${typeName}`)
@@ -84,24 +93,7 @@ export async function loadTypeDefinitions(contentDir: string = 'content'): Promi
       }
     }
     
-    // Second pass: Convert to TypeDefinition format with inheritance resolution
-    for (const [typeName, rawType] of Object.entries(rawTypes)) {
-      types[typeName] = {
-        name: typeName,
-        extends: rawType.extends || undefined,
-        filesPaths: rawType.filesPaths || [],
-        icon: rawType.icon || 'file',
-        tagNames: rawType.tagNames || [],
-        mapWithTag: rawType.mapWithTag || false,
-        limit: rawType.limit || 20,
-        fields: rawType.fields || []
-      }
-    }
-    
-    // Third pass: Build inheritance chains and categories
-    const inheritance: Record<string, string[]> = {}
-    const categories: Record<string, string> = {}
-    
+    // Build inheritance chains and categories for all loaded types
     for (const typeName of Object.keys(types)) {
       inheritance[typeName] = buildInheritanceChain(typeName, types)
       categories[typeName] = determineCategory(typeName, types)

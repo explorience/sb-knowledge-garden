@@ -3,6 +3,8 @@ title: Type-Aware Layouts
 tags:
   - feature
   - component
+last_updated: 2024-01-15
+quartz_version: "4.x"
 ---
 
 # Type-Aware Layouts
@@ -58,9 +60,9 @@ Each emitter uses `getLayoutForType()` to select appropriate page layouts that c
 ## Core Components
 
 ### Type System
-- **`quartz/types/typeRegistry.ts`** - Central type management and category classification
-- **`quartz/types/typeLoader.ts`** - Loads type definitions from `content/tools/types/*.md`  
-- **`quartz/plugins/transformers/typeDetection.ts`** - Detects and assigns types during build
+- **`quartz/types/typeRegistry.ts`** - Central type management, category classification, and type guard utilities
+- **`quartz/types/typeLoader.ts`** - Optimized single-pass loading of type definitions from `content/tools/types/*.md`  
+- **`quartz/plugins/transformers/typeDetection.ts`** - Robust type detection with error handling and graceful fallbacks
 - **`content/tools/types/*.md`** - Dynamic type definition files
 
 ### Layout System
@@ -295,3 +297,311 @@ The following existing Quartz files were modified to integrate the type-aware sy
 - `quartz/components/index.ts` - Added TypeBadge export
 - `quartz/plugins/emitters/index.ts` - Added ArtifactPage and ReferencePage exports
 - `quartz/plugins/transformers/index.ts` - Added TypeDetection export
+
+## Component Development Guide
+
+The type-aware layout system provides extensibility through intentionally empty layouts in `typeLayouts.ts`. This creates clean extension points for adding type-specific components without modifying core code.
+
+### Creating Type-Specific Components
+
+#### 1. Simple Type-Specific Components
+Create components that render only for specific types:
+
+```typescript
+// quartz/components/PatternMetadata.tsx
+import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import { isSpecificType } from "../types/typeRegistry"
+
+const PatternMetadata: QuartzComponent = (props: QuartzComponentProps) => {
+  const type = props.fileData.frontmatter?.type as string | undefined
+  
+  // Only render for pattern type
+  if (!isSpecificType(type, 'pattern')) {
+    return null
+  }
+  
+  const complexity = props.fileData.frontmatter?.complexity
+  const domain = props.fileData.frontmatter?.domain
+  
+  return (
+    <div class="pattern-metadata">
+      <div class="metadata-item">
+        <strong>Complexity:</strong> {complexity || 'Not specified'}
+      </div>
+      <div class="metadata-item">
+        <strong>Domain:</strong> {domain || 'General'}
+      </div>
+    </div>
+  )
+}
+
+PatternMetadata.displayName = "PatternMetadata"
+PatternMetadata.css = `
+.pattern-metadata {
+  background: var(--lightgray);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+.metadata-item {
+  margin: 0.5rem 0;
+}
+`
+
+export default (() => PatternMetadata) satisfies QuartzComponentConstructor
+```
+
+#### 2. Category-Aware Components
+Create components that work across a category:
+
+```typescript
+// quartz/components/ArtifactProgress.tsx
+import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import { isArtifactType } from "../types/typeRegistry"
+
+const ArtifactProgress: QuartzComponent = (props: QuartzComponentProps) => {
+  const type = props.fileData.frontmatter?.type as string | undefined
+  
+  // Only render for artifact types
+  if (!isArtifactType(type)) {
+    return null
+  }
+  
+  const status = props.fileData.frontmatter?.status || 'draft'
+  const lastReview = props.fileData.frontmatter?.lastReview
+  
+  return (
+    <div class="artifact-progress">
+      <span class={`status-badge status-${status}`}>{status}</span>
+      {lastReview && <span class="review-date">Last reviewed: {lastReview}</span>}
+    </div>
+  )
+}
+```
+
+### Adding Components to Layouts
+
+#### Method 1: Direct Layout Addition
+Add components directly to specific type layouts:
+
+```typescript
+// In quartz/types/typeLayouts.ts
+export const patternLayout: PageLayout = {
+  beforeBody: [
+    Component.PatternMetadata(),
+  ],
+  right: [
+    Component.PatternRelated(),
+    Component.ComplexityIndicator(),
+  ],
+}
+```
+
+#### Method 2: TypeAware Component Addition
+Add to unified layouts via TypeAware components:
+
+```typescript
+// In quartz/types/typeLayouts.ts
+export const artifactLayout: PageLayout = {
+  afterBody: [
+    Component.ArtifactProgress(),
+    Component.ValidationChecklist(),
+  ],
+}
+```
+
+### Using Type Guard Functions
+
+The system provides utility functions for cleaner conditionals:
+
+```typescript
+import { 
+  isArtifactType, 
+  isReferenceType, 
+  isSpecificType, 
+  hasTypeAncestor 
+} from "../types/typeRegistry"
+
+// Category checks
+if (isArtifactType(type)) { /* artifact logic */ }
+if (isReferenceType(type)) { /* reference logic */ }
+
+// Specific type checks
+if (isSpecificType(type, 'playbook')) { /* playbook logic */ }
+
+// Inheritance checks
+if (hasTypeAncestor(type, 'artifact')) { /* inherits from artifact */ }
+```
+
+### Best Practices
+
+1. **Use Type Guards**: Always use the provided type guard functions instead of string comparisons
+2. **Null Safety**: Handle null/undefined types gracefully
+3. **Component Naming**: Use descriptive names that indicate the component's purpose and scope
+4. **CSS Scoping**: Use specific CSS classes to avoid conflicts
+5. **Conditional Rendering**: Return `null` early if the component shouldn't render
+6. **Export Pattern**: Always use the `satisfies QuartzComponentConstructor` pattern
+
+## Troubleshooting
+
+### Common Issues and Solutions
+
+#### Issue: "Type Not Detected"
+**Symptoms**: Files show as 'note' type when they should be a specific type
+
+**Solutions**:
+1. **Check Frontmatter**: Ensure `type: typename` is correctly set in frontmatter
+   ```yaml
+   ---
+   type: pattern  # Must match exactly
+   ---
+   ```
+
+2. **Verify Type Definition**: Ensure the type exists in `content/tools/types/`
+   ```bash
+   ls content/tools/types/  # Should show your-type.md
+   ```
+
+3. **Check Directory Patterns**: Verify file is in the correct directory
+   ```yaml
+   # In type definition file
+   filesPaths:
+     - artifacts/patterns  # File should be in content/artifacts/patterns/
+   ```
+
+4. **Enable Debug Logging**: Set `NODE_ENV=development` to see detection logs
+   ```bash
+   NODE_ENV=development npx quartz build
+   # Look for: [TypeDetection] filename: detected-type (category)
+   ```
+
+#### Issue: "Wrong Layout Applied"
+**Symptoms**: Page uses default layout instead of type-specific layout
+
+**Solutions**:
+1. **Check Type Category**: Verify the type maps to correct category
+   ```typescript
+   // In typeLayouts.ts, ensure layout is defined
+   export const yourTypeLayout: PageLayout = { /* ... */ }
+   ```
+
+2. **Verify Emitter Processing**: Check that files are processed by correct emitter
+   - Artifact types → ArtifactPage emitter
+   - Reference types → ReferencePage emitter
+   - Note types → ContentPage emitter (default)
+
+3. **Check Layout Export**: Ensure layout is exported from `typeLayouts.ts`
+   ```typescript
+   export const patternLayout: PageLayout = { /* ... */ }
+   // Must be exported to be usable
+   ```
+
+#### Issue: "TypeAware Components Not Rendering"
+**Symptoms**: Custom components defined in layouts don't appear
+
+**Solutions**:
+1. **Check Layout Arrays**: Ensure layout arrays are not empty
+   ```typescript
+   export const myLayout: PageLayout = {
+     beforeBody: [Component.MyComponent()], // Not empty
+     left: [],  // Empty = TypeAware component won't render
+   }
+   ```
+
+2. **Verify Component Export**: Check component is exported in `index.ts`
+   ```typescript
+   // In quartz/components/index.ts
+   export { MyComponent }
+   ```
+
+3. **Check Conditional Logic**: Verify TypeAware component conditions
+   ```typescript
+   // TypeAware components only render when layout arrays have content
+   if (layout && layout.right && layout.right.length > 0) {
+     return <TypeAwareRightContent {...props} />
+   }
+   ```
+
+#### Issue: "Build Errors with Custom Components"
+**Symptoms**: Build fails when adding custom components
+
+**Solutions**:
+1. **Check TypeScript Types**: Ensure proper typing
+   ```typescript
+   import { QuartzComponent, QuartzComponentConstructor } from "./types"
+   
+   const MyComponent: QuartzComponent = (props) => { /* ... */ }
+   export default (() => MyComponent) satisfies QuartzComponentConstructor
+   ```
+
+2. **Verify Imports**: Check all imports are correct
+   ```typescript
+   import * as Component from "../../components"  // In emitters
+   import { isArtifactType } from "../types/typeRegistry"  // Type guards
+   ```
+
+3. **CSS Syntax**: Verify CSS-in-JS syntax is correct
+   ```typescript
+   MyComponent.css = `
+     .my-component {
+       color: var(--dark);  /* Use Quartz CSS variables */
+     }
+   `
+   ```
+
+### Debug Commands
+
+```bash
+# Enable detailed logging
+NODE_ENV=development npx quartz build
+
+# Check type detection
+grep -r "TypeDetection" build-output.log
+
+# Verify file processing
+grep -r "ArtifactPage\|ReferencePage" build-output.log
+
+# Check for build errors
+npx quartz build 2>&1 | grep -i error
+```
+
+### Getting Help
+
+If issues persist:
+1. Check the [Quartz documentation](https://quartz.jzhao.xyz/)
+2. Verify your setup against the file index below
+3. Enable development logging for detailed output
+4. Check that all required files are in place and properly exported
+
+## Version Compatibility
+
+| Feature | Quartz Version | Notes |
+|---------|----------------|--------|
+| Type-Aware Layouts | 4.x | Core feature requires Quartz v4 |
+| TypeAware Components | 4.x | Uses Quartz component system |
+| Type Guards | 4.x | Built on TypeScript foundations |
+| Error Handling | 4.x+ | Added in v4 with enhanced resilience |
+| Single-Pass Optimization | 4.x+ | Performance improvement in build process |
+
+**Last Updated**: January 15, 2024  
+**Tested With**: Quartz v4.2.x  
+**Breaking Changes**: None - fully backward compatible
+
+## File Index
+
+### Core System Files
+| File | Location | Purpose |
+|------|----------|---------|
+| `typeRegistry.ts` | `quartz/types/` | Type management, classification, inheritance, and type guard functions |
+| `typeLoader.ts` | `quartz/types/` | Optimized single-pass type definition loader |
+| `typeLayouts.ts` | `quartz/types/` | Page layout definitions for each content type |
+| `typeDetection.ts` | `quartz/plugins/transformers/` | Robust type detection with error handling |
+| `artifactPage.tsx` | `quartz/plugins/emitters/` | Emitter for artifact category pages |
+| `referencePage.tsx` | `quartz/plugins/emitters/` | Emitter for reference category pages |
+| `TypeBadge.tsx` | `quartz/components/` | Component displaying type badges |
+| `TypeAwareBeforeBody.tsx` | `quartz/components/` | Conditional beforeBody content per type |
+| `TypeAwareLeftContent.tsx` | `quartz/components/` | Conditional left sidebar content per type |
+| `TypeAwareRightContent.tsx` | `quartz/components/` | Conditional right sidebar content per type |
+| `TypeAwareAfterBody.tsx` | `quartz/components/` | Conditional afterBody content per type |
+| `Flex.tsx` | `quartz/components/` | Flexible layout component for arranging elements |
+| `Divider.tsx` | `quartz/components/` | Horizontal rule separator component |

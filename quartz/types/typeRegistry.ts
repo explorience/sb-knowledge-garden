@@ -328,3 +328,42 @@ export const TYPE_HIERARCHY = {
     category: 'artifact'
   }
 }
+
+/**
+ * Type guard utility functions for cleaner conditionals
+ */
+
+/**
+ * Check if a type is in the artifact category
+ */
+export function isArtifactType(type?: string | null): boolean {
+  return type ? getTypeCategory(type) === 'artifact' : false
+}
+
+/**
+ * Check if a type is in the reference category
+ */
+export function isReferenceType(type?: string | null): boolean {
+  return type ? getTypeCategory(type) === 'reference' : false
+}
+
+/**
+ * Check if a type is in the note category (or null/undefined)
+ */
+export function isNoteType(type?: string | null): boolean {
+  return type ? getTypeCategory(type) === 'note' : true
+}
+
+/**
+ * Check if a type is a specific type name
+ */
+export function isSpecificType(type?: string | null, typeName: string): boolean {
+  return type === typeName
+}
+
+/**
+ * Check if a type inherits from a parent type (useful for checking patterns, playbooks, etc.)
+ */
+export function hasTypeAncestor(type?: string | null, ancestor: string): boolean {
+  return type ? isTypeDescendantOf(type, ancestor) : false
+}

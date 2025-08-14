@@ -2,6 +2,8 @@
 title: "ArtifactPage"
 tags:
   - plugin/emitter
+last_updated: 2024-01-15
+quartz_version: "4.x"
 ---
 
 This plugin generates individual pages for content in the 'artifact' category using type-specific layouts. It works as part of the [[type-aware layouts]] system to provide different page structures based on content type.
