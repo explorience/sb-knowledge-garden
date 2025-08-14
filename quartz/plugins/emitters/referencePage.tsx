@@ -6,6 +6,7 @@ import { FullPageLayout } from "../../cfg"
 import { FilePath, pathToRoot } from "../../util/path"
 import { sharedPageComponents, defaultContentPageLayout } from "../../../quartz.layout"
 import { Content } from "../../components"
+import * as Component from "../../components"
 import { write } from "./helpers"
 import DepGraph from "../../depgraph"
 import { getLayoutForType } from "../../types/typeLayouts"
@@ -16,13 +17,55 @@ import { getLayoutForType } from "../../types/typeLayouts"
  * Processes files in the 'reference' category (link, reference types).
  * Gracefully skips 'tag' and 'index' types which are handled by 
  * purpose-built TagPage and FolderPage emitters respectively.
- * Uses type-specific layouts from typeLayouts.ts for each content type.
+ * Uses a unified layout with type-aware conditional sections.
  */
 export const ReferencePage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userOpts) => {
-  // Default layout fallback
-  const defaultOpts: FullPageLayout = {
+  // Custom layout for all reference types
+  const referenceLayoutOpts: FullPageLayout = {
     ...sharedPageComponents,
-    ...defaultContentPageLayout,
+    beforeBody: [
+      Component.Breadcrumbs(),
+      Component.TitleWithTypeBadge(),
+      Component.Description(),
+    ],
+    left: [
+      Component.MobileOnly(Component.Spacer()),
+      Component.DesktopOnly(Component.ConditionalRender({
+        component: Component.TypeAwareLeftContent(),
+        condition: (props) => {
+          const type = props.fileData.frontmatter?.type as string | undefined
+          const layout = getLayoutForType(type)
+          // Only show if the type's layout defines left section content
+          return layout && layout.left && layout.left.length > 0
+        }
+      })),
+      Component.DesktopOnly(Component.Explorer({
+        title: "Knowledge Garden",
+      })),
+    ],
+    right: [
+      Component.ConditionalRender({
+        component: Component.TypeAwareRightContent(),
+        condition: (props) => {
+          const type = props.fileData.frontmatter?.type as string | undefined
+          const layout = getLayoutForType(type)
+          // Only show if the type's layout defines right section content
+          return layout && layout.right && layout.right.length > 0
+        }
+      }),
+      Component.DesktopOnly(Component.Graph()),
+    ],
+    afterBody: [
+      Component.ConditionalRender({
+        component: Component.TypeAwareAfterBody(),
+        condition: (props) => {
+          const type = props.fileData.frontmatter?.type as string | undefined
+          const layout = getLayoutForType(type)
+          // Only show if the type's layout defines afterBody content
+          return layout && layout.afterBody && layout.afterBody.length > 0
+        }
+      }),
+    ],
     pageBody: Content(),
     ...userOpts,
   }
@@ -30,17 +73,15 @@ export const ReferencePage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (user
   return {
     name: "ReferencePage",
     getQuartzComponents() {
-      // Return all possible components that might be used across all layouts
-      // The actual components used will be determined per-file in emit()
       return [
-        defaultOpts.head,
-        ...defaultOpts.header,
-        ...defaultOpts.beforeBody,
-        defaultOpts.pageBody,
-        ...defaultOpts.afterBody,
-        ...defaultOpts.left,
-        ...defaultOpts.right,
-        defaultOpts.footer,
+        referenceLayoutOpts.head,
+        ...referenceLayoutOpts.header,
+        ...referenceLayoutOpts.beforeBody,
+        referenceLayoutOpts.pageBody,
+        ...referenceLayoutOpts.afterBody,
+        ...referenceLayoutOpts.left,
+        ...referenceLayoutOpts.right,
+        referenceLayoutOpts.footer,
       ]
     },
     async getDependencyGraph(ctx, content, _resources) {
@@ -65,15 +106,6 @@ export const ReferencePage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (user
         }
 
         const slug = file.data.slug!
-        
-        // Get type-specific layout or fall back to default
-        const typeLayout = getLayoutForType(detectedType)
-        const layoutOpts: FullPageLayout = typeLayout ? {
-          ...sharedPageComponents,
-          ...typeLayout,
-          pageBody: Content(),
-          ...userOpts,
-        } : defaultOpts
 
         const externalResources = pageResources(pathToRoot(slug), resources)
         const componentData: QuartzComponentProps = {
@@ -86,7 +118,7 @@ export const ReferencePage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (user
           allFiles,
         }
 
-        const content = renderPage(cfg, slug, componentData, layoutOpts, externalResources)
+        const content = renderPage(cfg, slug, componentData, referenceLayoutOpts, externalResources)
         const fp = await write({
           ctx,
           content,

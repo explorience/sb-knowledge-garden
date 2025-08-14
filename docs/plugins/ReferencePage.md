@@ -44,11 +44,12 @@ const layoutOpts = typeLayout ? {
 
 ## Page Structure Control
 
-Reference types can have customized page layouts:
+Reference types use a unified layout with conditional type-aware sections:
 
-- **beforeBody**: TypeBadge component for reference types
-- **left**: Custom Explorer showing only reference content
-- **right**: Extended graph depth for relationship visualization
+- **beforeBody**: Breadcrumbs, TitleWithTypeBadge, Description
+- **left**: TypeAwareLeftContent (conditional) + Explorer (desktop only)
+- **right**: TypeAwareRightContent (conditional) + Graph (desktop only)
+- **afterBody**: TypeAwareAfterBody (conditional)
 - **pageBody**: Standard Content component
 
 ## Graceful Coexistence
