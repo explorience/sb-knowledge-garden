@@ -8,3 +8,7 @@ export { Static } from "./static"
 export { ComponentResources } from "./componentResources"
 export { NotFoundPage } from "./404"
 export { CNAME } from "./cname"
+
+// Category-level emitters (hybrid approach)
+export { ReferencePage } from "./referencePage"
+export { ArtifactPage } from "./artifactPage"

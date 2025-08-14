@@ -8,7 +8,7 @@ author:
 tags:
   - governance
 publish: "true"
-type: link
+type: article
 ---
 
 **SuperBenefit DAO is convening a short series of Twitter Spaces** to explore how the nature of tags/governance.md is evolving, and to inquire into the governance we need to accelerate the arrival of better futures. We call this project _[Exploring governance for better futures](http://exploregov.xyz/)_.

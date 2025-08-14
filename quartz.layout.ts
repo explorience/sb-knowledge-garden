@@ -8,12 +8,7 @@ export const sharedPageComponents: SharedLayout = {
     Component.Darkmode(),
     Component.Search(),
   ],
-  afterBody: [
-    Component.LicenseInfo(),
-    Component.CitationGenerator({
-      defaultStyle: 'apa'
-    })
-  ],
+  afterBody: [],
   footer: Component.Footer({
     links: {
       "Twitter": "https://twitter.com/superbenefitdao",
@@ -28,8 +23,8 @@ export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
     Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
+    Component.Description(),
+    Component.BannerImage(),
   ],
   left: [
     Component.MobileOnly(Component.Spacer()),
@@ -46,7 +41,7 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle()],
   left: [
     Component.MobileOnly(Component.Spacer()),
     Component.DesktopOnly(Component.Explorer({
