@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx quartz build:*)",
+      "Bash(sed:*)",
+      "Bash(NODE_ENV=development npx quartz build)",
+      "Bash(npx quartz:*)",
+      "Bash(npx cross-env:*)",
+      "Bash(rm:*)",
+      "Bash(grep:*)",
+      "Bash(git checkout:*)",
+      "Bash(mv:*)",
+      "Bash(node:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run:*)",
+      "Bash(set NODE_ENV=development)",
+      "Bash(taskkill:*)",
+      "Bash(wmic process where:*)",
+      "Bash(tasklist:*)",
+      "Bash(ps:*)",
+      "Bash(cat:*)",
+      "Bash(lsof:*)",
+      "Bash(kill:*)",
+      "Bash(cmd //c:*)",
+      "WebFetch(domain:quartz.jzhao.xyz)",
+      "Bash(git add:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(/bashes)"
+    ],
+    "deny": [],
+    "defaultMode": "acceptEdits"
+  }
+}
