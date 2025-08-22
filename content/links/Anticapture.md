@@ -11,7 +11,7 @@ tags:
 curator:
   - rathermercurial.eth
 publish: "true"
-type: link, practice
+type: link
 functions:
   - governance
 qualities: 

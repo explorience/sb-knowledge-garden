@@ -9,7 +9,7 @@ tags:
   - permissions
   - governance
 publish: "true"
-type: link
+type: article
 ---
 
 ## How permissionless access in DAOs creates decentralized collective intelligence

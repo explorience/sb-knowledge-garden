@@ -8,7 +8,7 @@ tags:
   - governance
   - daos
 publish: "true"
-type: link
+type: article
 ---
 
 **For many people, tags/governance.md is an obscure concept. For those engaged in it, it often relates to organisational performance and oversight of compliance, culture, strategy, and risk. Prevailing models tend to concentrate control and reinforce tags/power.md structures. Less often is governance designed to be generative, distributed, and enabling of self-organisation.**

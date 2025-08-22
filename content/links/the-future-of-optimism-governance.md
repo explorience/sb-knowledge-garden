@@ -2,7 +2,7 @@
 title: The Future of Optimism Governance
 url: https://optimism.mirror.xyz/PLrAQgE1EGRo7GRrFoztplFChnUZda4DFGW3dkQayxY
 author: []
-type: Article
+type: link
 tags:
   - governance
 publish: "true"

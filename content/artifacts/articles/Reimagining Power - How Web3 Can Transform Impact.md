@@ -1,7 +1,9 @@
 ---
 title: Reimagining Power - How Web3 Can Transform Impact
 tags: impact
-description: ""
+description: "Exploring how emerging web3 technologies can be leveraged to redistribute power, mobilize capital, and transform systems toward more equitable outcomes."
+banner: "![[attachments/rpp-article-cover.webp]]"
+type: article
 publish: true
 ---
 
