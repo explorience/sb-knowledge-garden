@@ -10,7 +10,8 @@ tags:
   - permissions
   - governance
 publish: "true"
-type: article
+type: link
+banner: "![[attachments/FzK303B84CkXp5lxZT5Uq.png]]"
 ---
 
 _Rowan is a contributor to [SuperBenefitDAO](https://www.superbenefit.org/) and works on scalable models of coordination and fractal DAO governance. Deep gratitude to Heenal Rajani and Michael Lewkowitz for contributing to this article. This article is the third in our series exploring the concept of DAOs as networks and their evolutionary nature._

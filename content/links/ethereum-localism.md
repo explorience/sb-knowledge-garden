@@ -2,7 +2,7 @@
 title: Ethereum Localism
 description: A collection of perspectives exploring the intersection of Ethereum and localism, examining how blockchain technology can support local communities while maintaining global coordination.
 publish: true
-type: link
+type: book
 source: https://greenpill.network/pdf/ethereum-localism.pdf
 author:
   - Niran Babalola
