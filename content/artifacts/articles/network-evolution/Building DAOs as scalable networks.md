@@ -7,7 +7,8 @@ tags:
   - daos
   - governance
 publish: "true"
-type: article
+type: link
+banner: "![[attachments/bH7p-1_vNGvLV7-2SOx4S.png]]"
 ---
 
 The article "Building DAOs as Scalable Networks" explores how decentralized autonomous organizations ([DAOs](tags/daos.md)) can scale by structuring smaller autonomous units called "Cells" within a broader governance system. It proposes a two-house model of governance — [Community Governance](artifacts/patterns/community-governance.md) to safeguard the network's purpose and [Operational Governance](artifacts/patterns/operational-governance.md) to allow flexibility and innovation. This approach enhances collaboration and coordination while ensuring long-term [purpose](tags/purpose.md) alignment, enabling DAOs to influence larger systems effectively.
