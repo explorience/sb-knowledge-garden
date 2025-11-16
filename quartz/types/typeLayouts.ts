@@ -121,18 +121,32 @@ export const tagLayout: PageLayout = {
 }
 
 /**
+ * Specific layout for release type
+ * Displays release contents with cards after the release description
+ */
+export const releaseLayout: PageLayout = {
+  beforeBody: [
+    // Component.ReleaseContents(),
+  ],
+  left: [
+    Component.MobileOnly(Component.Spacer()),
+  ],
+  right: [],
+}
+
+/**
  * Map of type names to their specific layouts
  */
 export const TYPE_LAYOUTS: Record<string, PageLayout> = {
   // Base
   'note': noteLayout,
-  
+
   // Reference types
   'reference': referenceLayout,
   'link': linkLayout,
   'tag': tagLayout,
   'index': referenceLayout,
-  
+
   // Artifact types
   'artifact': artifactLayout,
   'pattern': patternLayout,
@@ -140,7 +154,8 @@ export const TYPE_LAYOUTS: Record<string, PageLayout> = {
   'study': studyLayout,
   'article': artifactLayout,
   'guide': artifactLayout,
-  
+  'release': releaseLayout,
+
   // Other
   'protocol': noteLayout,
 }

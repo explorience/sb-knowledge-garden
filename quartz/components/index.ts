@@ -36,6 +36,9 @@ import TypeAwareLeftContent from "./TypeAwareLeftContent"
 import TypeAwareRightContent from "./TypeAwareRightContent"
 import TypeAwareAfterBody from "./TypeAwareAfterBody"
 import TypeAwareBeforeBody from "./TypeAwareBeforeBody"
+// Release components
+import ReleaseCard from "./ReleaseCard"
+import ReleaseContents from "./ReleaseContents"
 
 export {
   ArticleTitle,
@@ -76,4 +79,7 @@ export {
   TypeAwareRightContent,
   TypeAwareAfterBody,
   TypeAwareBeforeBody,
+  // Release components
+  ReleaseCard,
+  ReleaseContents,
 }
