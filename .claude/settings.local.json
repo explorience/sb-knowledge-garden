@@ -27,7 +27,15 @@
       "WebFetch(domain:quartz.jzhao.xyz)",
       "Bash(git add:*)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(/bashes)"
+      "Bash(/bashes)",
+      "Bash(find:*)",
+      "Bash(git pull:*)",
+      "Bash(dir:*)",
+      "Bash(git clean:*)",
+      "WebFetch(domain:platform.claude.com)",
+      "Bash(bash:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nSync reorganized artifacts from sb-knowledge-base\n\n- Reimagining Power release (article + playbook + case studies)\n- DAO Primitives Framework release (framework + patterns + network-evolution)\n- Windfall Protocol placeholder\n- misc/ folder with guides, patterns, articles, playbooks, stories\n- Update temp/ documentation for release-focused structure\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"

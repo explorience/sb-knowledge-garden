@@ -71,6 +71,13 @@ export const ArtifactPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userO
     ],
     afterBody: [
       Component.ConditionalRender({
+        component: Component.ReleaseContents(),
+        condition: (props) => {
+          const type = props.fileData.frontmatter?.type as string | undefined
+          return type === 'release'
+        }
+      }),
+      Component.ConditionalRender({
         component: Component.TypeAwareAfterBody(),
         condition: (props) => {
           const type = props.fileData.frontmatter?.type as string | undefined

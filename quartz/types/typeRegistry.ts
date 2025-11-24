@@ -129,6 +129,18 @@ export const TYPE_DEFINITIONS: Record<string, TypeDefinition> = {
     extends: 'note',
     filesPaths: [],
     icon: 'settings'
+  },
+
+  release: {
+    name: 'release',
+    extends: 'artifact',
+    filesPaths: [
+      'artifacts/reimagining-power',
+      'artifacts/dao-primitives',
+      'artifacts/governance-futures',
+      'artifacts/windfall-protocol'
+    ],
+    icon: 'package-open'
   }
 }
 
