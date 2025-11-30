@@ -4,7 +4,7 @@ import { vectorSearch, getStats } from './vector-store';
 import { getSystemPrompt } from './system-prompt';
 import type { ChatMessage, SearchResult } from './types';
 
-const TOP_K = 15; // Number of chunks to retrieve
+const TOP_K = 20; // Number of chunks to retrieve (increased for better coverage)
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const anthropic = process.env.ANTHROPIC_API_KEY
@@ -47,6 +47,15 @@ export async function* chat(
 
   // 2. Search vector store
   const results = await vectorSearch(embedding, TOP_K);
+
+  // Log search results for debugging (only in development)
+  if (process.env.NODE_ENV === 'development' || process.env.DEBUG_SEARCH) {
+    console.log(`[Chat] Query: "${message}"`);
+    console.log(`[Chat] Found ${results.length} results:`);
+    results.slice(0, 5).forEach((r, i) => {
+      console.log(`  ${i + 1}. ${r.title} - ${r.section} (distance: ${r._distance?.toFixed(4)})`);
+    });
+  }
 
   // 3. Build context
   const context = buildContext(results);
