@@ -26,6 +26,27 @@ app.get('/api/stats', async (req, res) => {
   res.json(stats);
 });
 
+// Debug endpoint - shows sample indexed content to diagnose search issues
+app.get('/api/debug', async (req, res) => {
+  try {
+    const { getSampleChunks } = await import('./vector-store');
+    const samples = await getSampleChunks(20);
+    const stats = await getStats();
+    res.json({
+      totalChunks: stats.totalChunks,
+      status: stats.status,
+      sampleTitles: samples.map(s => ({
+        title: s.title,
+        section: s.section,
+        file_path: s.file_path,
+        textPreview: s.text?.substring(0, 150) + '...'
+      }))
+    });
+  } catch (error) {
+    res.json({ error: String(error), status: 'error' });
+  }
+});
+
 // Chat endpoint with streaming
 app.post('/api/chat', async (req, res) => {
   const { message, history = [] } = req.body;
@@ -53,19 +74,26 @@ app.post('/api/chat', async (req, res) => {
 });
 
 // Regenerate embeddings endpoint
+// POST /api/regenerate - incremental update (only new content)
+// POST /api/regenerate?full=true - full regeneration (drops and rebuilds all embeddings)
 let isRegenerating = false;
 app.post('/api/regenerate', async (req, res) => {
   if (isRegenerating) {
     return res.json({ status: 'already_running', message: 'Regeneration already in progress' });
   }
 
+  const fullRegenerate = req.query.full === 'true' || req.body.full === true;
+
   isRegenerating = true;
-  res.json({ status: 'started', message: 'Embedding regeneration started' });
+  const mode = fullRegenerate ? 'full' : 'incremental';
+  console.log(`[Regenerate] Starting ${mode} embedding regeneration...`);
+  res.json({ status: 'started', message: `Embedding ${mode} regeneration started` });
 
   try {
-    await generateAllEmbeddings(CONTENT_DIR, false);
+    await generateAllEmbeddings(CONTENT_DIR, fullRegenerate);
+    console.log(`[Regenerate] ${mode} regeneration completed successfully`);
   } catch (error) {
-    console.error('Regeneration error:', error);
+    console.error('[Regenerate] Error:', error);
   } finally {
     isRegenerating = false;
   }

@@ -97,3 +97,28 @@ export async function getAllChunkIds(): Promise<Set<string>> {
     return new Set();
   }
 }
+
+// Get sample chunks for debugging
+export async function getSampleChunks(limit: number = 10): Promise<SearchResult[]> {
+  try {
+    const t = await getOrCreateTable();
+    if (!t) return [];
+
+    const results = await t.query()
+      .select(['id', 'text', 'title', 'url', 'section', 'file_path'])
+      .limit(limit)
+      .toArray();
+
+    return results.map(r => ({
+      id: r.id,
+      text: r.text,
+      title: r.title,
+      url: r.url,
+      section: r.section || '',
+      file_path: r.file_path,
+      _distance: 0
+    }));
+  } catch {
+    return [];
+  }
+}
