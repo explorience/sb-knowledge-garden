@@ -16,8 +16,10 @@ COPY start.sh ./
 # Make start script executable
 RUN chmod +x start.sh
 
-# Create lancedb directory for vector store
-RUN mkdir -p /usr/src/app/lancedb
+# Create directory for Railway volume mount
+# On Railway: Create a volume and mount it to /data
+# Then set env var LANCEDB_PATH=/data/lancedb
+RUN mkdir -p /data/lancedb
 
 EXPOSE 3001
 
