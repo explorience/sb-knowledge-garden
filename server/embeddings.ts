@@ -47,6 +47,13 @@ export function parseContentFiles(contentDir: string): ContentChunk[] {
         const titleMatch = content.match(/^---\s*\n(?:.*\n)*?title:\s*["']?([^"'\n]+)["']?\s*\n/);
         const title = titleMatch ? titleMatch[1] : path.basename(file, '.md');
 
+        // Extract description from frontmatter for additional context
+        const descMatch = content.match(/^---\s*\n(?:.*\n)*?description:\s*["']?([^"'\n]+)["']?\s*\n/);
+        const description = descMatch ? descMatch[1] : '';
+
+        // Extract parent folder name for context (e.g., "reimagining-power")
+        const parentFolder = path.dirname(relativePath).split('/').pop() || '';
+
         // Convert file path to URL (adjust for your routing)
         const url = '/' + relativePath.replace(/\.md$/, '').replace(/\/index$/, '');
 
@@ -61,9 +68,22 @@ export function parseContentFiles(contentDir: string): ContentChunk[] {
             .trim();
 
           if (cleanText.length > 50) { // Skip very short sections
+            // Create context-enriched text for better semantic search
+            // This helps queries like "RPP partners" find content about specific case studies
+            let contextPrefix = `Document: ${title}`;
+            if (description) {
+              contextPrefix += `\nDescription: ${description}`;
+            }
+            if (parentFolder && parentFolder !== 'content' && parentFolder !== 'artifacts') {
+              contextPrefix += `\nProject: ${parentFolder.replace(/-/g, ' ')}`;
+            }
+            contextPrefix += `\nSection: ${sectionTitle}\n\n`;
+
+            const textWithContext = contextPrefix + cleanText;
+
             chunks.push({
               id: `${relativePath}-section-${index}`,
-              text: cleanText.slice(0, 8000), // Limit chunk size
+              text: textWithContext.slice(0, 8000), // Limit chunk size
               metadata: {
                 title,
                 url,
