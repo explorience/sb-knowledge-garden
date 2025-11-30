@@ -12,7 +12,7 @@ export const sharedPageComponents: SharedLayout = {
     Component.ChatBot({
       title: "Ask SuperBenefit",
       placeholder: "Ask about DAOs, governance, coordination...",
-      apiUrl: "https://your-railway-app.railway.app", // Update with your Railway URL
+      apiUrl: "https://sb-knowledge-garden-production.up.railway.app",
     }),
   ],
   footer: Component.Footer({
