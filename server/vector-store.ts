@@ -47,6 +47,10 @@ export async function addRecords(records: VectorRecord[]): Promise<void> {
   const t = await getOrCreateTable();
   if (t) {
     await t.add(records);
+  } else {
+    // Table doesn't exist - create it with the provided records
+    console.log(`[VectorStore] Table doesn't exist, creating with ${records.length} records`);
+    await createTableWithData(records);
   }
 }
 
