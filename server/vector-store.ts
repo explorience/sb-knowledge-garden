@@ -2,8 +2,11 @@ import * as lancedb from '@lancedb/lancedb';
 import type { Table } from '@lancedb/lancedb';
 import type { VectorRecord, SearchResult } from './types';
 
-const DB_PATH = './lancedb';
+// Use LANCEDB_PATH env var for Railway volume mount, fallback to local path
+const DB_PATH = process.env.LANCEDB_PATH || './lancedb';
 const TABLE_NAME = 'knowledge_base';
+
+console.log(`[VectorStore] Using database path: ${DB_PATH}`);
 
 let db: lancedb.Connection | null = null;
 let table: Table | null = null;
