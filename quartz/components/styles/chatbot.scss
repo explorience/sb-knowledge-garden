@@ -56,8 +56,10 @@
     border-radius: 12px;
 
     @media (min-width: 768px) {
-      width: 800px;
-      height: 600px;
+      width: calc(100vw - 80px);
+      height: calc(100vh - 80px);
+      bottom: 40px;
+      right: 40px;
     }
   }
 
@@ -159,6 +161,117 @@
     strong {
       font-weight: 600;
     }
+
+    // Chat markdown headers
+    .chat-h1, .chat-h2, .chat-h3, .chat-h4 {
+      margin: 0.5em 0 0.3em 0;
+      line-height: 1.3;
+      font-weight: 600;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    .chat-h1 {
+      font-size: 1.3em;
+      color: var(--secondary);
+    }
+
+    .chat-h2 {
+      font-size: 1.15em;
+      color: var(--secondary);
+    }
+
+    .chat-h3 {
+      font-size: 1.05em;
+    }
+
+    .chat-h4 {
+      font-size: 1em;
+    }
+
+    // Paragraphs
+    .chat-p {
+      margin: 0.4em 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    // Blockquotes
+    .chat-blockquote {
+      margin: 0.5em 0;
+      padding: 0.5em 1em;
+      border-left: 3px solid var(--secondary);
+      background: rgba(0, 0, 0, 0.03);
+      font-style: italic;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    // Lists
+    .chat-ol, .chat-ul {
+      margin: 0.5em 0;
+      padding-left: 1.5em;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      li {
+        margin: 0.25em 0;
+      }
+    }
+
+    .chat-ol {
+      list-style-type: decimal;
+    }
+
+    .chat-ul {
+      list-style-type: disc;
+    }
+
+    // Tables
+    .chat-table {
+      width: 100%;
+      margin: 0.5em 0;
+      border-collapse: collapse;
+      font-size: 0.85em;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      th, td {
+        padding: 0.4em 0.6em;
+        border: 1px solid var(--gray);
+        text-align: left;
+      }
+
+      th {
+        background: rgba(0, 0, 0, 0.05);
+        font-weight: 600;
+      }
+
+      tr:nth-child(even) td {
+        background: rgba(0, 0, 0, 0.02);
+      }
+    }
+
+    // Horizontal rule
+    .chat-hr {
+      margin: 0.8em 0;
+      border: none;
+      border-top: 1px solid var(--gray);
+    }
   }
 }
 
@@ -254,5 +367,21 @@
     background: var(--darkgray);
     color: var(--light);
     border-color: var(--gray);
+  }
+
+  .chatbot-message.assistant .message-content {
+    .chat-blockquote {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .chat-table {
+      th {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      tr:nth-child(even) td {
+        background: rgba(255, 255, 255, 0.03);
+      }
+    }
   }
 }
