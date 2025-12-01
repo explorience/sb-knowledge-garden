@@ -204,12 +204,30 @@ export default ((userOpts?: Partial<ChatBotOptions>) => {
     }
 
     function formatMarkdown(text) {
-      return text
+      // Process line by line for headers, then apply inline formatting
+      const lines = text.split('\\n');
+      const processedLines = lines.map(line => {
+        // Headers (must be at start of line)
+        if (line.startsWith('#### ')) {
+          return '<h4 class="chat-h4">' + line.slice(5) + '</h4>';
+        }
+        if (line.startsWith('### ')) {
+          return '<h3 class="chat-h3">' + line.slice(4) + '</h3>';
+        }
+        if (line.startsWith('## ')) {
+          return '<h2 class="chat-h2">' + line.slice(3) + '</h2>';
+        }
+        if (line.startsWith('# ')) {
+          return '<h1 class="chat-h1">' + line.slice(2) + '</h1>';
+        }
+        return line;
+      });
+
+      return processedLines.join('<br>')
         .replace(/\\*\\*(.+?)\\*\\*/g, '<strong>$1</strong>')
         .replace(/\\*(.+?)\\*/g, '<em>$1</em>')
         .replace(/\\[([^\\]]+)\\]\\(([^)]+)\\)/g, '<a href="$2">$1</a>')
-        .replace(/\\\`([^\\\`]+)\\\`/g, '<code>$1</code>')
-        .replace(/\\n/g, '<br>');
+        .replace(/\\\`([^\\\`]+)\\\`/g, '<code>$1</code>');
     }
 
     sendBtn?.addEventListener('click', sendMessage);

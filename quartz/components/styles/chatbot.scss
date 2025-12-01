@@ -56,8 +56,10 @@
     border-radius: 12px;
 
     @media (min-width: 768px) {
-      width: 800px;
-      height: 600px;
+      width: calc(100vw - 80px);
+      height: calc(100vh - 80px);
+      bottom: 40px;
+      right: 40px;
     }
   }
 
@@ -158,6 +160,35 @@
 
     strong {
       font-weight: 600;
+    }
+
+    // Chat markdown headers
+    .chat-h1, .chat-h2, .chat-h3, .chat-h4 {
+      margin: 0.5em 0 0.3em 0;
+      line-height: 1.3;
+      font-weight: 600;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    .chat-h1 {
+      font-size: 1.3em;
+      color: var(--secondary);
+    }
+
+    .chat-h2 {
+      font-size: 1.15em;
+      color: var(--secondary);
+    }
+
+    .chat-h3 {
+      font-size: 1.05em;
+    }
+
+    .chat-h4 {
+      font-size: 1em;
     }
   }
 }
