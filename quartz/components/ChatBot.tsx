@@ -284,10 +284,8 @@ export default ((userOpts?: Partial<ChatBotOptions>) => {
           continue;
         }
 
-        // Regular paragraph
-        if (line.trim() === '') {
-          result.push('<br>');
-        } else {
+        // Regular paragraph - skip empty lines (block elements have their own margins)
+        if (line.trim() !== '') {
           result.push('<p class="chat-p">' + formatInline(line) + '</p>');
         }
         i++;

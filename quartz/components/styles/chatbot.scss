@@ -344,32 +344,14 @@
 }
 
 /* Dark mode adjustments */
+/* Note: Most elements use CSS variables that automatically adapt to dark mode.
+   We only need to override semi-transparent backgrounds that use rgba(0,0,0,...) */
 :root[saved-theme="dark"] {
-  #chatbot-window {
-    background: var(--dark);
-  }
-
-  #chatbot-messages {
-    background: var(--darkgray);
-  }
-
   .chatbot-message.assistant .message-content {
-    background: var(--dark);
-    color: var(--light);
-  }
+    code {
+      background: rgba(255, 255, 255, 0.15);
+    }
 
-  #chatbot-input-area {
-    background: var(--dark);
-    border-top-color: var(--darkgray);
-  }
-
-  #chatbot-input {
-    background: var(--darkgray);
-    color: var(--light);
-    border-color: var(--gray);
-  }
-
-  .chatbot-message.assistant .message-content {
     .chat-blockquote {
       background: rgba(255, 255, 255, 0.05);
     }
