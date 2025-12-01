@@ -51,7 +51,7 @@ export default ((userOpts?: Partial<ChatBotOptions>) => {
           <div id="chatbot-messages">
             <div class="chatbot-message assistant">
               <div class="message-content">
-                Hi! I can help you find information in this knowledge base. What would you like to know?
+                Hi! I can help you find information in this knowledge garden. What would you like to know?
               </div>
             </div>
           </div>
