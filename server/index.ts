@@ -1,8 +1,47 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
 import { chat, getStats } from './rag-service';
 import { generateAllEmbeddings } from './embeddings';
+
+// Question logging
+const LOGS_DIR = path.join(__dirname, 'logs');
+
+interface QuestionLog {
+  timestamp: string;
+  sessionId: string;
+  question: string;
+  response: string;
+  historyLength: number;
+}
+
+function logQuestion(entry: QuestionLog): void {
+  try {
+    // Ensure logs directory exists
+    if (!fs.existsSync(LOGS_DIR)) {
+      fs.mkdirSync(LOGS_DIR, { recursive: true });
+    }
+
+    // Get today's date for filename
+    const today = new Date().toISOString().split('T')[0];
+    const logFile = path.join(LOGS_DIR, `questions-${today}.json`);
+
+    // Read existing logs or start fresh
+    let logs: QuestionLog[] = [];
+    if (fs.existsSync(logFile)) {
+      const content = fs.readFileSync(logFile, 'utf-8');
+      logs = JSON.parse(content);
+    }
+
+    // Append new entry and write
+    logs.push(entry);
+    fs.writeFileSync(logFile, JSON.stringify(logs, null, 2));
+  } catch (error) {
+    console.error('[QuestionLog] Error writing log:', error);
+  }
+}
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -49,7 +88,7 @@ app.get('/api/debug', async (req, res) => {
 
 // Chat endpoint with streaming
 app.post('/api/chat', async (req, res) => {
-  const { message, history = [] } = req.body;
+  const { message, history = [], sessionId = 'unknown' } = req.body;
 
   if (!message) {
     return res.status(400).json({ error: 'Message is required' });
@@ -60,11 +99,23 @@ app.post('/api/chat', async (req, res) => {
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
 
+  let fullResponse = '';
+
   try {
     for await (const chunk of chat(message, history, SITE_NAME, SITE_DESCRIPTION)) {
+      fullResponse += chunk;
       res.write(`data: ${JSON.stringify({ content: chunk })}\n\n`);
     }
     res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
+
+    // Log the question and response
+    logQuestion({
+      timestamp: new Date().toISOString(),
+      sessionId,
+      question: message,
+      response: fullResponse,
+      historyLength: history.length
+    });
   } catch (error) {
     console.error('Chat error:', error);
     res.write(`data: ${JSON.stringify({ error: 'An error occurred' })}\n\n`);
