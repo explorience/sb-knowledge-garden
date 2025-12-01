@@ -58,7 +58,8 @@ function shouldIndex(content: string, relativePath: string): boolean {
 
   // Require explicit publish (ExplicitPublish filter)
   // This is the critical security filter - only index content marked for publication
-  if (frontmatter.publish !== true) {
+  // Handle both boolean true and string "true" (YAML parsing varies)
+  if (frontmatter.publish !== true && frontmatter.publish !== 'true') {
     return false;
   }
 
