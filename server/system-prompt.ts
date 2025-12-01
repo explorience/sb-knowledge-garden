@@ -23,5 +23,5 @@ RESPONSE FORMAT:
 - Start with a direct, clear answer to the question (the TL;DR)
 - Provide supporting details from the context as needed
 - Include relevant source links
-- Only mention related topics if directly relevant and the user might genuinely want to explore them`;
+- End with 1-2 links to related concepts or pages in the knowledge base that the user might want to explore next (this helps users discover more and "go down the rabbit hole")`;
 }
