@@ -8,7 +8,62 @@ const EMBEDDING_MODEL = 'text-embedding-3-small';
 const BATCH_SIZE = 100;
 const MAX_TOKENS_PER_BATCH = 8000;
 
+// Patterns to ignore (matches Quartz config ignorePatterns)
+const IGNORE_PATTERNS = ['private', 'templates', '.obsidian', '.github'];
+
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+// Parse YAML frontmatter from markdown content
+function parseFrontmatter(content: string): Record<string, unknown> {
+  const match = content.match(/^---\s*\n([\s\S]*?)\n---/);
+  if (!match) return {};
+
+  const yaml = match[1];
+  const frontmatter: Record<string, unknown> = {};
+
+  // Simple YAML parsing for key: value pairs
+  const lines = yaml.split('\n');
+  for (const line of lines) {
+    const keyValue = line.match(/^(\w+):\s*(.*)$/);
+    if (keyValue) {
+      const [, key, value] = keyValue;
+      // Parse booleans
+      if (value === 'true') frontmatter[key] = true;
+      else if (value === 'false') frontmatter[key] = false;
+      // Parse quoted strings
+      else if (value.match(/^["'].*["']$/)) frontmatter[key] = value.slice(1, -1);
+      else frontmatter[key] = value;
+    }
+  }
+
+  return frontmatter;
+}
+
+// Check if a file should be indexed (respects Quartz publish filters)
+function shouldIndex(content: string, relativePath: string): boolean {
+  // Check ignore patterns
+  const pathParts = relativePath.split('/');
+  for (const part of pathParts) {
+    if (IGNORE_PATTERNS.includes(part)) {
+      return false;
+    }
+  }
+
+  const frontmatter = parseFrontmatter(content);
+
+  // Skip drafts (RemoveDrafts filter)
+  if (frontmatter.draft === true) {
+    return false;
+  }
+
+  // Require explicit publish (ExplicitPublish filter)
+  // This is the critical security filter - only index content marked for publication
+  if (frontmatter.publish !== true) {
+    return false;
+  }
+
+  return true;
+}
 
 // Estimate tokens (conservative)
 function estimateTokens(text: string): number {
@@ -42,6 +97,11 @@ export function parseContentFiles(contentDir: string): ContentChunk[] {
       } else if (file.endsWith('.md')) {
         const content = fs.readFileSync(filePath, 'utf-8');
         const relativePath = path.relative(contentDir, filePath);
+
+        // SECURITY: Only index published content (respects Quartz ExplicitPublish filter)
+        if (!shouldIndex(content, relativePath)) {
+          continue;
+        }
 
         // Extract title from frontmatter or filename
         const titleMatch = content.match(/^---\s*\n(?:.*\n)*?title:\s*["']?([^"'\n]+)["']?\s*\n/);
