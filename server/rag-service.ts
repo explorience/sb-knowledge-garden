@@ -72,7 +72,7 @@ User question: ${message}`;
     // Use Claude
     const stream = await anthropic.messages.stream({
       model: 'claude-sonnet-4-5-20250929',
-      max_tokens: 4000,
+      max_tokens: 2500,
       system: systemPrompt,
       messages: [
         ...history.map(m => ({
@@ -92,7 +92,7 @@ User question: ${message}`;
     // Use OpenAI
     const stream = await openai.chat.completions.create({
       model: 'gpt-4o',
-      max_tokens: 4000,
+      max_tokens: 2500,
       stream: true,
       messages: [
         { role: 'system', content: systemPrompt },
