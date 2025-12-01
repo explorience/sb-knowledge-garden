@@ -24,5 +24,6 @@ replit.nix
 
 # Chat server
 lancedb/
+server/logs/
 .env
 .env.local

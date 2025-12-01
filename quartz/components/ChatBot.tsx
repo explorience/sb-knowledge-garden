@@ -90,6 +90,13 @@ export default ((userOpts?: Partial<ChatBotOptions>) => {
     let history = [];
     let isMaximized = localStorage.getItem('chatbot-maximized') === 'true';
 
+    // Generate session ID for tracking conversations
+    const sessionId = crypto.randomUUID ? crypto.randomUUID() :
+      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = Math.random() * 16 | 0;
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
+
     // Initialize maximized state
     if (isMaximized && chatWindow) {
       chatWindow.classList.add('maximized');
@@ -156,7 +163,7 @@ export default ((userOpts?: Partial<ChatBotOptions>) => {
         const response = await fetch(apiUrl + '/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text, history: history.slice(-10) })
+          body: JSON.stringify({ message: text, history: history.slice(-10), sessionId })
         });
 
         const reader = response.body?.getReader();
