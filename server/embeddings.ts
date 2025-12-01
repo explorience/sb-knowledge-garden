@@ -131,6 +131,10 @@ export async function generateAllEmbeddings(
   let batch: ContentChunk[] = [];
   let batchTokens = 0;
 
+  // Track whether we've created the table in full regeneration mode
+  // This prevents dropping and recreating the table on every batch
+  let tableCreatedForFullRegen = false;
+
   for (const chunk of newChunks) {
     const tokens = estimateTokens(chunk.text);
 
@@ -154,10 +158,15 @@ export async function generateAllEmbeddings(
 
         // Save incrementally every 10 chunks
         if (records.length >= 10) {
-          if (fullRegenerate && records.length === batch.length) {
+          if (fullRegenerate && !tableCreatedForFullRegen) {
+            // First batch in full regeneration: drop and create table
             await createTableWithData(records);
+            tableCreatedForFullRegen = true;
+            console.log(`[FullRegen] Created table with ${records.length} initial records`);
           } else {
+            // Subsequent batches: append to existing table
             await addRecords(records);
+            console.log(`[Save] Added ${records.length} records to database`);
           }
           records.length = 0; // Clear after saving
         }
@@ -191,10 +200,13 @@ export async function generateAllEmbeddings(
 
   // Save any remaining records
   if (records.length > 0) {
-    if (fullRegenerate && existingIds.size === 0) {
+    if (fullRegenerate && !tableCreatedForFullRegen) {
+      // Edge case: all chunks fit in one batch, table never created yet
       await createTableWithData(records);
+      console.log(`[FullRegen] Created table with ${records.length} records`);
     } else {
       await addRecords(records);
+      console.log(`[Save] Added final ${records.length} records to database`);
     }
   }
 
