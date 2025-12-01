@@ -204,30 +204,132 @@ export default ((userOpts?: Partial<ChatBotOptions>) => {
     }
 
     function formatMarkdown(text) {
-      // Process line by line for headers, then apply inline formatting
       const lines = text.split('\\n');
-      const processedLines = lines.map(line => {
-        // Headers (must be at start of line)
+      const result = [];
+      let i = 0;
+
+      while (i < lines.length) {
+        const line = lines[i];
+
+        // Horizontal rule
+        if (line.match(/^-{3,}$/) || line.match(/^\\*{3,}$/)) {
+          result.push('<hr class="chat-hr">');
+          i++;
+          continue;
+        }
+
+        // Headers
         if (line.startsWith('#### ')) {
-          return '<h4 class="chat-h4">' + line.slice(5) + '</h4>';
+          result.push('<h4 class="chat-h4">' + formatInline(line.slice(5)) + '</h4>');
+          i++;
+          continue;
         }
         if (line.startsWith('### ')) {
-          return '<h3 class="chat-h3">' + line.slice(4) + '</h3>';
+          result.push('<h3 class="chat-h3">' + formatInline(line.slice(4)) + '</h3>');
+          i++;
+          continue;
         }
         if (line.startsWith('## ')) {
-          return '<h2 class="chat-h2">' + line.slice(3) + '</h2>';
+          result.push('<h2 class="chat-h2">' + formatInline(line.slice(3)) + '</h2>');
+          i++;
+          continue;
         }
         if (line.startsWith('# ')) {
-          return '<h1 class="chat-h1">' + line.slice(2) + '</h1>';
+          result.push('<h1 class="chat-h1">' + formatInline(line.slice(2)) + '</h1>');
+          i++;
+          continue;
         }
-        return line;
-      });
 
-      return processedLines.join('<br>')
+        // Blockquotes
+        if (line.startsWith('> ')) {
+          const quoteLines = [];
+          while (i < lines.length && lines[i].startsWith('> ')) {
+            quoteLines.push(lines[i].slice(2));
+            i++;
+          }
+          result.push('<blockquote class="chat-blockquote">' + formatInline(quoteLines.join('<br>')) + '</blockquote>');
+          continue;
+        }
+
+        // Tables
+        if (line.includes('|') && line.trim().startsWith('|')) {
+          const tableLines = [];
+          while (i < lines.length && lines[i].includes('|')) {
+            tableLines.push(lines[i]);
+            i++;
+          }
+          result.push(formatTable(tableLines));
+          continue;
+        }
+
+        // Ordered lists
+        if (line.match(/^\\d+\\.\\s/)) {
+          const listItems = [];
+          while (i < lines.length && lines[i].match(/^\\d+\\.\\s/)) {
+            listItems.push('<li>' + formatInline(lines[i].replace(/^\\d+\\.\\s/, '')) + '</li>');
+            i++;
+          }
+          result.push('<ol class="chat-ol">' + listItems.join('') + '</ol>');
+          continue;
+        }
+
+        // Unordered lists
+        if (line.match(/^[-*]\\s/) && !line.match(/^-{3,}$/)) {
+          const listItems = [];
+          while (i < lines.length && lines[i].match(/^[-*]\\s/)) {
+            listItems.push('<li>' + formatInline(lines[i].replace(/^[-*]\\s/, '')) + '</li>');
+            i++;
+          }
+          result.push('<ul class="chat-ul">' + listItems.join('') + '</ul>');
+          continue;
+        }
+
+        // Regular paragraph
+        if (line.trim() === '') {
+          result.push('<br>');
+        } else {
+          result.push('<p class="chat-p">' + formatInline(line) + '</p>');
+        }
+        i++;
+      }
+
+      return result.join('');
+    }
+
+    function formatInline(text) {
+      return text
         .replace(/\\*\\*(.+?)\\*\\*/g, '<strong>$1</strong>')
         .replace(/\\*(.+?)\\*/g, '<em>$1</em>')
-        .replace(/\\[([^\\]]+)\\]\\(([^)]+)\\)/g, '<a href="$2">$1</a>')
+        .replace(/\\[([^\\]]+)\\]\\(([^)]+)\\)/g, '<a href="$2" target="_blank">$1</a>')
         .replace(/\\\`([^\\\`]+)\\\`/g, '<code>$1</code>');
+    }
+
+    function formatTable(tableLines) {
+      if (tableLines.length < 2) return tableLines.join('<br>');
+
+      const parseRow = (row) => row.split('|').filter((_, idx, arr) => idx > 0 && idx < arr.length - 1).map(cell => cell.trim());
+
+      const headerCells = parseRow(tableLines[0]);
+      // Skip separator row (index 1)
+      const bodyRows = tableLines.slice(2);
+
+      let html = '<table class="chat-table"><thead><tr>';
+      headerCells.forEach(cell => {
+        html += '<th>' + formatInline(cell) + '</th>';
+      });
+      html += '</tr></thead><tbody>';
+
+      bodyRows.forEach(row => {
+        const cells = parseRow(row);
+        html += '<tr>';
+        cells.forEach(cell => {
+          html += '<td>' + formatInline(cell) + '</td>';
+        });
+        html += '</tr>';
+      });
+
+      html += '</tbody></table>';
+      return html;
     }
 
     sendBtn?.addEventListener('click', sendMessage);
