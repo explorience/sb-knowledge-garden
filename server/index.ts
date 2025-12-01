@@ -3,8 +3,13 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { chat, getStats } from './rag-service';
 import { generateAllEmbeddings } from './embeddings';
+
+// ES module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Question logging
 const LOGS_DIR = path.join(__dirname, 'logs');
