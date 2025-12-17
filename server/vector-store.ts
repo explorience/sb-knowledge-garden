@@ -102,6 +102,40 @@ export async function getAllChunkIds(): Promise<Set<string>> {
   }
 }
 
+// Get all chunks with their IDs and file paths for sync comparison
+export async function getAllChunks(): Promise<Array<{ id: string; file_path: string }>> {
+  try {
+    const t = await getOrCreateTable();
+    if (!t) return [];
+
+    const results = await t.query().select(['id', 'file_path']).toArray();
+    return results.map(r => ({ id: r.id, file_path: r.file_path }));
+  } catch {
+    return [];
+  }
+}
+
+// Delete chunks by their IDs
+export async function deleteChunksByIds(ids: string[]): Promise<number> {
+  if (ids.length === 0) return 0;
+
+  try {
+    const t = await getOrCreateTable();
+    if (!t) return 0;
+
+    // LanceDB uses SQL-like filter syntax for deletion
+    // We need to delete each ID individually or use an IN clause
+    const idList = ids.map(id => `'${id.replace(/'/g, "''")}'`).join(', ');
+    await t.delete(`id IN (${idList})`);
+
+    console.log(`[VectorStore] Deleted ${ids.length} chunks`);
+    return ids.length;
+  } catch (error) {
+    console.error('[VectorStore] Error deleting chunks:', error);
+    return 0;
+  }
+}
+
 // Get sample chunks for debugging
 export async function getSampleChunks(limit: number = 10): Promise<SearchResult[]> {
   try {
